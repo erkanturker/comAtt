@@ -1,48 +1,68 @@
-# Project Proposal
+# Capstone 2 Project Proposal
+## Erkan Turker
 
-Use this template to help get you started right away! Once the proposal is complete, please let your mentor know that this is ready to be reviewed.
+### Community School Attendance App
 
-## Get Started
+#### What goal will your project be designed to achieve?
+- **Provide managing community school attendance:** The app will assist in managing community school attendance . 
+- **Help Planning their class:** create terms (like '2024 Summer'), classes, and schedule classes within each term.
+- **Shows Attendence Rate:**  It will display attendance rates for the term, month, and weekday for each class or the entire organization
 
-|             | Description                                                                                                                                                                                                                                                                                                                                              | Fill in |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Tech Stack  | What tech stack will you use for your final project? We recommend that you use React and Node for this project, however if you are extremely interested in becoming a Python developer you are welcome to use Python/Flask for this project.                                                                                                             |         |
-| Stack Focus | Is the front-end UI or the back-end going to be the focus of your project? Or are you going to make an evenly focused full-stack application?                                                                                                                                                                                                            |         |
-| Type        | Will this be a website? A mobile app? Something else?                                                                                                                                                                                                                                                                                                    |         |
-| Goal        | What goal will your project be designed to achieve?                                                                                                                                                                                                                                                                                                      |         |
-| Users       | What kind of users will visit your app? In other words, what is the demographic of your users?                                                                                                                                                                                                                                                           |         |
-| Data        | What data do you plan on using? How are you planning on collecting your data? You may have not picked your actual API yet, which is fine, just outline what kind of data you would like it to contain. You are welcome to create your own API and populate it with data. If you are using a Python/Flask stack, you are required to create your own API. |         |
+#### What kind of users will visit your app? In other words, what is the demographic of your users?
+- The target demographic for the app consists of small community schools, such as Sunday schools, where classes are typically held once a week or twice a month.
 
-# Breaking down your project
+#### Will this be a website? A mobile app? Something else?
+- Yes, It will be a website and support phone/tablet view.
 
-When planning your project, break down your project into smaller tasks, knowing that you may not know everything in advance and that these details might change later. Some common tasks might include:
+#### What data do you plan on using?
+- The application will exclusively utilize its own data; there's no need for third-party APIs. The admin will create students, teachers, and classes. Teachers will generate attendance records for each class they are assigned to.
 
-- Determining the database schema
-- Sourcing your data
-- Determining user flow(s)
-- Setting up the backend and database
-- Setting up the frontend
-- What functionality will your app include?
-  - User login and sign up
-  - Uploading a user profile picture
+#### What tech stack will you use for your final project?
+- **Frontend:** React, CSS, Ant Design of React.
+- **Backend:** Node, Express
+- **Database:** PostgreSQL.
 
-Here are a few examples to get you started with. During the proposal stage, you just need to create the tasks. Description and details can be edited at a later time. In addition, more tasks can be added in at a later time.
+### Project Breakdown
 
-| Task Name                   | Description                                                                                                   | Example                                                           |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| Design Database schema      | Determine the models and database schema required for your project.                                           | [Link](https://github.com/hatchways/sb-capstone-example/issues/1) |
-| Source Your Data            | Determine where your data will come from. You may choose to use an existing API or create your own.           | [Link](https://github.com/hatchways/sb-capstone-example/issues/2) |
-| User Flows                  | Determine user flow(s) - think about what you want a user’s experience to be like as they navigate your site. | [Link](https://github.com/hatchways/sb-capstone-example/issues/3) |
-| Set up backend and database | Configure the environmental variables on your framework of choice for development and set up database.        | [Link](https://github.com/hatchways/sb-capstone-example/issues/4) |
-| Set up frontend             | Set up frontend framework of choice and link it to the backend with a simple API call for example.            | [Link](https://github.com/hatchways/sb-capstone-example/issues/5) |
-| User Authentication         | Fullstack feature - ability to authenticate (login and sign up) as a user                                     | [Link](https://github.com/hatchways/sb-capstone-example/issues/6) |
+2. **Create Model and Schema for User Wishlist:**
+   - Define a models to store student,teacher,terms,classroom infromataion, attendence,
+  
+   - ![image](https://github.com/hatchways-community/capstone-project-two-abc0b72fc1084d49b41bb107ecf040ba/assets/63922809/d4a05e14-65f3-475e-b87e-95f1416924f4)
 
-## Labeling
+  
 
-Labeling is a great way to separate out your tasks and to track progress. Here’s an [example](https://github.com/hatchways/sb-capstone-example/issues) of a list of issues that have labels associated.
+2. **Setting Up Backend:**
+   - Install Node and Express for the backend.
+   - Install any other necessary libraries or tools.
+   - Creates routes for creating term,teacher,student,classroom and attendence
 
-| Label Type    | Description                                                                                                                                                                                                                                                                                                                     | Example                      |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| Difficulty    | Estimating the difficulty level will be helpful to determine if the project is unique and ready to be showcased as part of your portfolio - having a mix of task difficultlies will be essential.                                                                                                                               | Easy, Medium, Hard           |
-| Type          | If a frontend/backend task is large at scale (for example: more than 100 additional lines or changes), it might be a good idea to separate these tasks out into their own individual task. If a feature is smaller at scale (not more than 10 files changed), labeling it as fullstack would be suitable to review all at once. | Frontend, Backend, Fullstack |
-| Stretch Goals | You can also label certain tasks as stretch goals - as a nice to have, but not mandatory for completing this project.                                                                                                                                                                                                           | Must Have, Stretch Goal      |
+
+3. **Login and Authentication Logic:**
+   - Only admin can create user to login
+   - Admin can do all the action create user, classroom.. The user with teacher role ony can access take attendce
+
+5. **Set Up Frontend Environment:**
+   - Use React render dynamic content from the backend.
+   - CSS, and Ant Design for the frontend layout.
+   - Create admin dashboard to make all the action available,
+   - Crete Teacher Dashboard to take attendce
+
+6. **Implement Wishlist Functionality:**
+   - Allow users to add and remove games from their wishlist.
+   - Display the wishlist on the frontend with prices from different stores.
+   - Implement notifications for price drops or new releases.
+
+7. **Testing and Debugging:**
+   - Test the application thoroughly to ensure all features work as expected.
+   - Use tools like jest for backend testing and vitest for frontend testing.
+   - Debug any issues that arise during testing.
+
+8. **Deployment:**
+   - Deploy the application to a hosting service like Heroku or AWS.
+   - Ensure the application is secure and scalable for potential future updates.
+
+### Stretch Goals
+-  Over time, it will evolve into a student management app for private organizations.
+-  Teachers can share their classroom materials
+-  Students can have their own dashboard to access their subject materials.
+-  Parents can register their students, make payments for the term, and check their grammar.
