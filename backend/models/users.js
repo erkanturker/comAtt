@@ -76,7 +76,6 @@ class User {
 
   static async authenticate({ username, password }) {
     // Find the user by username
-
     const result = await db.query(
       `
     SELECT 
