@@ -78,10 +78,15 @@ class User {
     // Find the user by username
     const result = await db.query(
       `
-    SELECT 
-    username,password,first_name,last_name,email,role
-    FROM users
-    WHERE username=$1
+      SELECT 
+        username,
+        password,
+        first_name AS "firstName",
+        last_name AS "lastName",
+        email,
+        role
+      FROM users
+      WHERE username=$1
     `,
       [username]
     );
