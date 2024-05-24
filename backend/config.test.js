@@ -21,6 +21,11 @@ describe("config load from env", () => {
     expect(config.getDatabaseUri()).toEqual("test_db_url");
   });
 
+  test("BCRYPT_WORK_FACTOR can read from config file", () => {
+    //if node_ENV is not test return 12 all the time
+    expect(config.BCRYPT_WORK_FACTOR).toEqual(12);
+  });
+
   afterAll(() => {
     delete process.env.PORT;
     delete process.env.SECRET_KEY;

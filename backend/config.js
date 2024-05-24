@@ -10,8 +10,11 @@ function getDatabaseUri() {
     : process.env.DATABASE_URL || "posgresql:///comatt";
 }
 
+const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
+
 module.exports = {
   PORT,
   SECRET_KEY,
   getDatabaseUri,
+  BCRYPT_WORK_FACTOR,
 };
