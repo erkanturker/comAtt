@@ -1,6 +1,7 @@
 const express = require("express");
 const registrationSchema = require("../validators/registartionValidator");
 const { BadRequestError } = require("../expressError");
+const User = require("../models/users");
 
 const router = express.Router();
 
@@ -15,7 +16,9 @@ router.post("/register", async (req, res, next) => {
       throw new BadRequestError(errors);
     }
 
-    return res.status(201).json("it is working");
+    const user = await User.register({ ...req.body });
+
+    return res.status(201).json(user);
   } catch (err) {
     return next(err);
   }

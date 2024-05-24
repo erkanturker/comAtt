@@ -1,4 +1,4 @@
-const { Client } = requiure("pg");
+const { Client } = require("pg");
 const { getDatabaseUri } = require("./config");
 
 let db;

@@ -10,7 +10,7 @@ const {
 const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class User {
-  static async register(username, password, firstName, lastName, email, role) {
+  static async register({username, password, firstName, lastName, email, role}) {
     const duplicateCheck = await db.query(
       `
     SELECT username
@@ -23,11 +23,11 @@ class User {
       throw new BadRequestError(`Duplicate username: ${username}`);
     }
 
-    const hashedPassword = bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     const result = await db.query(
       `
-    INSTERT INTO users
+    INSERT INTO users
     (username,password,first_name,last_name,email,role)
     VALUES($1,$2,$3,$4,$5,$6)
     RETURNING username, first_name AS firstName, last_name AS lastName, email, role
