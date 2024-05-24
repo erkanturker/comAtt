@@ -1,5 +1,8 @@
 const express = require("express");
-const registrationSchema = require("../validators/registartionValidator");
+const {
+  registrationSchema,
+  loginSchema,
+} = require("../validators/authValidators");
 const { BadRequestError } = require("../expressError");
 const User = require("../models/users");
 
@@ -34,7 +37,7 @@ router.post("/register", async (req, res, next) => {
 
     // If validation fails, collect all error messages and throw a BadRequestError
     if (error) {
-      const errors = error.details.map((details) => details.message);
+      const errors = error.details.map((detail) => detail.message);
       throw new BadRequestError(errors);
     }
 
@@ -43,6 +46,23 @@ router.post("/register", async (req, res, next) => {
     return res.status(201).json(user);
   } catch (err) {
     // Pass any errors to the next middleware function
+    return next(err);
+  }
+});
+
+router.post("/token", async (req, res, next) => {
+  try {
+    const { error } = loginSchema.validate(req.body, { abortEarly: false });
+
+    if (error) {
+      const errors = error.details.map((detail) => detail.message);
+      throw new BadRequestError(errors);
+    }
+
+    const user = await User.authenticate({ ...req.body });
+
+    return res.json(user);
+  } catch (err) {
     return next(err);
   }
 });

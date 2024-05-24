@@ -61,6 +61,44 @@ class User {
 
     return user;
   }
+
+  /**
+   * Authenticates a user with the provided username and password.
+   *
+   * @param {Object} credentials - The user's login credentials
+   * @param {string} credentials.username - The username of the user
+   * @param {string} credentials.password - The password of the user
+   *
+   * @returns {Promise<Object>} The authenticated user (without the password)
+   *
+   * @throws {UnauthorizedError} If the username or password is invalid
+   */
+
+  static async authenticate({ username, password }) {
+    // Find the user by username
+
+    const result = await db.query(
+      `
+    SELECT 
+    username,password,first_name,last_name,email,role
+    FROM users
+    WHERE username=$1
+    `,
+      [username]
+    );
+
+    const user = result.rows[0];
+    if (user) {
+      const isValid = bcrypt.compare(password, user.password);
+      if (isValid) {
+        delete user.password;
+        return user;
+      }
+    }
+
+    // If username or password is invalid, throw an UnauthorizedError
+    throw new UnauthorizedError("Invalid username/password");
+  }
 }
 
 module.exports = User;
