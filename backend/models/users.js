@@ -10,7 +10,28 @@ const {
 const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class User {
-  static async register({username, password, firstName, lastName, email, role}) {
+  /**
+   * Registers a new user with the provided details.
+   * @param {Object} userDetails - The details of the user to register
+   * @param {string} userDetails.username - The username of the new user
+   * @param {string} userDetails.password - The password of the new user
+   * @param {string} userDetails.firstName - The first name of the new user
+   * @param {string} userDetails.lastName - The last name of the new user
+   * @param {string} userDetails.email - The email address of the new user
+   * @param {string} userDetails.role - The role of the new user (admin or teacher)
+   * @returns {Promise<Object>} The newly created user
+   * @throws {BadRequestError} If the username already exists
+   */
+
+  static async register({
+    username,
+    password,
+    firstName,
+    lastName,
+    email,
+    role,
+  }) {
+    // Check if the username already exists
     const duplicateCheck = await db.query(
       `
     SELECT username
@@ -23,6 +44,7 @@ class User {
       throw new BadRequestError(`Duplicate username: ${username}`);
     }
 
+    // Hash the user's password
     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     const result = await db.query(

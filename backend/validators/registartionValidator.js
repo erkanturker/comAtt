@@ -1,5 +1,5 @@
 const Joi = require("joi");
-
+//return validation schema for register route
 const registrationSchema = Joi.object({
   username: Joi.string().max(25).required(),
   password: Joi.string().min(5).required(),
