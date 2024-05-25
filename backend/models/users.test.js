@@ -2,7 +2,11 @@ const bcrypt = require("bcrypt");
 const db = require("../db");
 const { BCRYPT_WORK_FACTOR } = require("../config");
 const User = require("./user");
-const { NotFoundError } = require("../expressError");
+const {
+  NotFoundError,
+  BadRequestError,
+  UnauthorizedError,
+} = require("../expressError");
 
 beforeAll(async () => {
   await db.query(`DELETE FROM users`);
@@ -65,6 +69,66 @@ describe("get User", () => {
       fail();
     } catch (err) {
       expect(err instanceof NotFoundError).toBeTruthy();
+    }
+  });
+});
+
+describe("register user", () => {
+  test("should register user", async () => {
+    const newUser = {
+      username: "u3",
+      firstName: "U3F",
+      lastName: "U3L",
+      email: "u3@email.com",
+      role: "teacher",
+    };
+
+    const resp = await User.register({ ...newUser, password: "1234" });
+
+    expect(newUser).toEqual(resp);
+  });
+
+  test("should check duplicate", async () => {
+    try {
+      const newUser = {
+        username: "u1",
+        firstName: "U3F",
+        lastName: "U3L",
+        email: "u3@email.com",
+        role: "teacher",
+      };
+      await User.register({ ...newUser, password: "1234" });
+      fail();
+    } catch (err) {
+      expect(err instanceof BadRequestError).toBeTruthy();
+    }
+  });
+});
+
+describe("authenticate user", () => {
+  test("should authenticate user", async () => {
+    const user = await User.authenticate({
+      username: "u1",
+      password: "password1",
+    });
+    expect(user).toEqual({
+      username: "u1",
+      firstName: "U1F",
+      lastName: "U1L",
+      email: "u1@email.com",
+      role: "admin",
+    });
+  });
+
+  test("should throw UnauthorizedError when password is not matched", async () => {
+    try {
+      await User.authenticate({
+        username: "u1",
+        password: "pass1",
+      });
+      fail();
+    } catch (err) {
+      expect(err instanceof UnauthorizedError).toBeTruthy();
     }
   });
 });

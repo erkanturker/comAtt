@@ -43,7 +43,7 @@ class User {
     INSERT INTO users
     (username,password,first_name,last_name,email,role)
     VALUES($1,$2,$3,$4,$5,$6)
-    RETURNING username, first_name AS firstName, last_name AS lastName, email, role
+    RETURNING username, first_name AS "firstName", last_name AS "lastName", email, role
     `,
       [username, hashedPassword, firstName, lastName, email, role]
     );
@@ -76,7 +76,7 @@ class User {
 
     const user = result.rows[0];
     if (user) {
-      const isValid = bcrypt.compare(password, user.password);
+      const isValid = await bcrypt.compare(password, user.password);
       if (isValid) {
         delete user.password;
         return user;
