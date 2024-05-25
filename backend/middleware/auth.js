@@ -11,7 +11,7 @@ const { UnauthorizedError } = require("../expressError");
  */
 function authJWT(req, res, next) {
   try {
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization || null;
     if (authHeader) {
       // Extract the JWT token from the Authorization header
       const token = authHeader.replace(/^[Bb]earer /, "").trim();
@@ -21,7 +21,7 @@ function authJWT(req, res, next) {
     return next();
   } catch (err) {
     // If there is an error (e.g., token verification fails), proceed to the next middleware
-    return next(err);
+    return next(new UnauthorizedError("Invalid or expired token"));
   }
 }
 
