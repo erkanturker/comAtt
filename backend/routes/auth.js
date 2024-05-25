@@ -7,7 +7,7 @@ const {
 } = require("../validators/authValidators");
 
 const { BadRequestError } = require("../expressError");
-const User = require("../models/users");
+const User = require("../models/user");
 const createToken = require("../helpers/token");
 
 const router = express.Router();
