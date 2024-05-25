@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const db = require("../db");
 const { BCRYPT_WORK_FACTOR } = require("../config");
+const createToken = require("../helpers/token");
 
 async function commonBeforeAll() {
   await db.query(`DELETE FROM users`);
@@ -27,4 +28,20 @@ async function commonAfterAll() {
   await db.end();
 }
 
-module.exports = { commonBeforeAll, commonAfterAll };
+const adminToken = createToken({
+  username: "u1",
+  firstName: "U1F",
+  lastName: "U1L",
+  email: "u1@email.com",
+  role: "admin",
+});
+
+const teacherToken = createToken({
+  username: "u2",
+  firstName: "U2F",
+  lastName: "U2L",
+  email: "u2@email.com",
+  role: "teacher",
+});
+
+module.exports = { commonBeforeAll, commonAfterAll, adminToken, teacherToken };
