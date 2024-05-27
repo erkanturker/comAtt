@@ -1,8 +1,15 @@
 const request = require("supertest");
 const app = require("../app");
-const { commonBeforeAll, commonAfterAll } = require("./_testCommon");
+const {
+  commonBeforeAll,
+  commonAfterAll,
+  commonBeforeEach,
+  commonAfterEach,
+} = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
+beforeEach(commonBeforeEach);
+afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 describe("POST /auth/token", () => {

@@ -1,33 +1,21 @@
-const bcrypt = require("bcrypt");
 const db = require("../db");
-const { BCRYPT_WORK_FACTOR } = require("../config");
 const User = require("./user");
 const {
   NotFoundError,
   BadRequestError,
   UnauthorizedError,
 } = require("../expressError");
+const {
+  commonBeforeAll,
+  commonAfterAll,
+  commonBeforeEach,
+  commonAfterEach,
+} = require("./_testCommon");
 
-beforeAll(async () => {
-  await db.query(`DELETE FROM users`);
-
-  await db.query(
-    `
-  INSERT INTO users(username,
-                    password,
-                    first_name,
-                    last_name,
-                    email,
-                    role)
-  VALUES ('u1', $1, 'U1F', 'U1L', 'u1@email.com','admin'),
-         ('u2', $2, 'U2F', 'U2L', 'u2@email.com','teacher')
-  RETURNING username`,
-    [
-      await bcrypt.hash("password1", BCRYPT_WORK_FACTOR),
-      await bcrypt.hash("password2", BCRYPT_WORK_FACTOR),
-    ]
-  );
-});
+beforeAll(commonBeforeAll);
+beforeEach(commonBeforeEach);
+afterEach(commonAfterEach);
+afterAll(commonAfterAll);
 
 describe("find All", () => {
   test("should retrieve all users", async () => {
@@ -173,8 +161,4 @@ describe("update users", () => {
       expect(err instanceof BadRequestError).toBeTruthy();
     }
   });
-});
-
-afterAll(async () => {
-  db.end();
 });

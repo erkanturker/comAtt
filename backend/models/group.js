@@ -84,7 +84,7 @@ class Group {
 
   /**
    * REmove group by id
-   * @returns {object} -{status:"deleted"}
+   * @returns {Number} -group Id
    * @throws {NotFoundError} - If the group name does not exist
    */
 
@@ -96,10 +96,12 @@ class Group {
       [groupId]
     );
 
-    const group = result.rows[0];
+    const id = result.rows[0];
 
-    if (!group)
+    if (!id)
       throw new NotFoundError(`The group is not found with id: ${groupId}`);
+
+    return id;
   }
   /**
    * Update group data.

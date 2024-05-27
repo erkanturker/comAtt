@@ -3,11 +3,15 @@ const app = require("../app");
 const {
   commonBeforeAll,
   commonAfterAll,
+  commonBeforeEach,
+  commonAfterEach,
   adminToken,
   teacherToken,
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
+beforeEach(commonBeforeEach);
+afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 describe("POST /create new User", () => {
@@ -97,7 +101,7 @@ describe("GET /users/:username", () => {
 describe("Delete User", () => {
   test("should delete user", async () => {
     const resp = await request(app)
-      .delete("/users/testNewUser")
+      .delete("/users/u2")
       .set("authorization", `Bearer ${adminToken}`);
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({ status: "deleted" });

@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const db = require("../db");
 const { BCRYPT_WORK_FACTOR } = require("../config");
-const createToken = require("../helpers/token");
 
 let groupIds = [];
 
@@ -29,11 +28,12 @@ async function commonBeforeAll() {
 
   const resultGroup = await db.query(`INSERT
    INTO groups (group_name)
-    VALUES ('K-2 Boys'), ('K-2 Girls'),('5-8 Boys')
+    VALUES ('K-2 Boys'), ('K-2 Girls')
     RETURNING group_id AS id`);
 
   groupIds.splice(0, 0, ...resultGroup.rows.map((r) => r.id));
 }
+
 async function commonBeforeEach() {
   await db.query("BEGIN");
 }
@@ -46,27 +46,9 @@ async function commonAfterAll() {
   await db.end();
 }
 
-const adminToken = createToken({
-  username: "u1",
-  firstName: "U1F",
-  lastName: "U1L",
-  email: "u1@email.com",
-  role: "admin",
-});
-
-const teacherToken = createToken({
-  username: "u2",
-  firstName: "U2F",
-  lastName: "U2L",
-  email: "u2@email.com",
-  role: "teacher",
-});
-
 module.exports = {
   commonBeforeAll,
   commonAfterAll,
-  adminToken,
-  teacherToken,
   commonBeforeEach,
   commonAfterEach,
   groupIds,

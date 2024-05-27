@@ -1,5 +1,5 @@
 const { BadRequestError } = require("../expressError");
-const { commonAfterAll } = require("../routes/_testCommon");
+const { commonAfterAll } = require("../models/_testCommon");
 const { partialUpdate, checkDuplicateUsername } = require("./sql");
 
 describe("partial update", () => {
