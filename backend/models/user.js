@@ -130,6 +130,25 @@ class User {
 
     return user;
   }
+
+  /**
+   * Remove a user by username.
+   * Deletes the user from the database
+   * If the user does not exist, it throws a NotFoundError.
+   */
+
+  static async remove(username) {
+    const result = await db.query(
+      `DELETE
+       FROM users
+      WHERE username=$1 
+      RETURNING username`,
+      [username]
+    );
+
+    const user = result.rows[0];
+    if (!user) throw new NotFoundError(`No user: ${username}`);
+  }
 }
 
 module.exports = User;
