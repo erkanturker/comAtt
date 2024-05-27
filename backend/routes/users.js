@@ -6,6 +6,7 @@ const {
 } = require("../middleware/auth");
 const {
   registrationSchema: newUserSchema,
+  updateUserSchema,
 } = require("../validators/authValidators");
 const { BadRequestError } = require("../expressError");
 
@@ -83,6 +84,25 @@ router.delete("/:username", ensureIsAdmin, async (req, res, next) => {
   try {
     await User.remove(req.params.username);
     return res.json({ status: "deleted" });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+router.patch("/:username", ensureIsAdmin, async (req, res, next) => {
+  try {
+    const { error } = updateUserSchema.validate(req.body, {
+      abortEarly: false,
+    });
+
+    if (error) {
+      const errors = error.details.map((detail) => detail.message);
+      throw new BadRequestError(errors);
+    }
+
+    const user = await User.update(req.params.username, req.body);
+
+    return res.json(user);
   } catch (err) {
     return next(err);
   }

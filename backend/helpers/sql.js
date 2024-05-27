@@ -1,4 +1,5 @@
 const { BadRequestError } = require("../expressError");
+const db = require("../db");
 
 /**
  * Helper function to generate a dynamic SQL query for partial update.
@@ -28,4 +29,21 @@ function partialUpdate(data, jstoSql) {
   };
 }
 
-module.exports = partialUpdate;
+/**
+ * Check if a username already exists in the database.
+ * @param {string} username - The username to check.
+ * @returns {boolean} - True if the username exists, false otherwise.
+ */
+async function checkDuplicateUsername(username) {
+  const result = await db.query(
+    `
+      SELECT username
+      FROM users
+      WHERE username=$1`,
+    [username]
+  );
+
+  return result.rows.length > 0;
+}
+
+module.exports = { partialUpdate, checkDuplicateUsername };

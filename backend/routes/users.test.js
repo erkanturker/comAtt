@@ -115,3 +115,28 @@ describe("Delete User", () => {
     expect(resp.statusCode).toBe(401);
   });
 });
+
+describe("update User", () => {
+  test("should update user", async () => {
+    const resp = await request(app)
+      .patch("/users/u2")
+      .send({ lastName: "U2L" })
+      .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toBe(200);
+  });
+
+  test("should return 400 badrequest", async () => {
+    const resp = await request(app)
+      .patch("/users/testNewUser")
+      .send({ lastName: "" })
+      .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toBe(400);
+  });
+
+  test("should return 404 not found", async () => {
+    const resp = await request(app)
+      .patch("/users/testNewUser")
+      .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toBe(404);
+  });
+});

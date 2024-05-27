@@ -1,5 +1,6 @@
 const { BadRequestError } = require("../expressError");
-const partialUpdate = require("./sql");
+const { commonAfterAll } = require("../routes/_testCommon");
+const { partialUpdate, checkDuplicateUsername } = require("./sql");
 
 describe("partial update", () => {
   test("should partial update", () => {
@@ -13,7 +14,7 @@ describe("partial update", () => {
       values: ["John", 30],
     });
   });
-  
+
   test("should return bad request error if no data provied", () => {
     try {
       partialUpdate({}, {});
@@ -23,3 +24,17 @@ describe("partial update", () => {
     }
   });
 });
+
+describe("check duplicate", () => {
+  test("should return true", async () => {
+    const isExist = await checkDuplicateUsername("u1");
+    expect(isExist).toBeTruthy();
+  });
+
+  test("should return false", async () => {
+    const isExist = await checkDuplicateUsername("nonUser");
+    expect(isExist).toBeFalsy();
+  });
+});
+
+afterAll(commonAfterAll);

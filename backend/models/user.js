@@ -8,6 +8,7 @@ const {
   BadRequestError,
 } = require("../expressError");
 const { BCRYPT_WORK_FACTOR } = require("../config");
+const { partialUpdate, checkDuplicateUsername } = require("../helpers/sql");
 
 class User {
   /**
@@ -23,15 +24,10 @@ class User {
     role,
   }) {
     // Check if the username already exists
-    const duplicateCheck = await db.query(
-      `
-    SELECT username
-    FROM users
-    WHERE username=$1`,
-      [username]
-    );
 
-    if (duplicateCheck.rows[0]) {
+    const isDuplicate = await checkDuplicateUsername(username);
+
+    if (isDuplicate) {
       throw new BadRequestError(`Duplicate username: ${username}`);
     }
 
@@ -148,6 +144,47 @@ class User {
 
     const user = result.rows[0];
     if (!user) throw new NotFoundError(`No user: ${username}`);
+  }
+
+  /**
+   * Update user data.
+   * This method updates the specified fields of a user record. It hashes the password
+   * if it is included in the update data, checks for duplicate usernames, and generates
+   * a dynamic SQL query to update only the provided fields.
+   */
+
+  static async update(username, data) {
+    const user = await this.get(username);
+
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
+    }
+
+    if (data.username) {
+      const isDuplicate = await checkDuplicateUsername(data.username);
+
+      if (isDuplicate) {
+        throw new BadRequestError(`Duplicate username: ${data.username}`);
+      }
+    }
+
+    const jsToSql = { firstName: "first_name", lastName: "last_name" };
+
+    const { setCols, values } = partialUpdate(data, jsToSql);
+
+    const usernameVarIdx = "$" + (values.length + 1);
+
+    const resp = await db.query(
+      `
+    UPDATE users
+    SET ${setCols}
+    WHERE username=${usernameVarIdx}
+    RETURNING username, first_name AS "firstName", last_name AS "lastName", email, role`,
+      [...values, user.username]
+    );
+
+    const updatedUser = resp.rows[0];
+    return updatedUser;
   }
 }
 

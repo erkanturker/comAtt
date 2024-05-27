@@ -150,6 +150,31 @@ describe("remove users", () => {
   });
 });
 
+describe("update users", () => {
+  test("should update user", async () => {
+    const user = await User.update("u2", { lastName: "U2L" });
+    expect(user.lastName).toBe("U2L");
+  });
+
+  test("should return not found", async () => {
+    try {
+      await User.update("non Exist", { lastName: "U2L" });
+      fail();
+    } catch (err) {
+      expect(err instanceof NotFoundError).toBeTruthy();
+    }
+  });
+
+  test("should return duplicate", async () => {
+    try {
+      await User.update("u2", { username: "u2", lastName: "U2L" });
+      fail();
+    } catch (err) {
+      expect(err instanceof BadRequestError).toBeTruthy();
+    }
+  });
+});
+
 afterAll(async () => {
   db.end();
 });

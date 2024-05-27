@@ -9,6 +9,14 @@ const registrationSchema = Joi.object({
   role: Joi.string().valid("admin", "teacher").required(),
 });
 
+const updateUserSchema = Joi.object({
+  username: Joi.string().max(25),
+  password: Joi.string().min(5),
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+  email: Joi.string().email(),
+  role: Joi.string().valid("admin", "teacher"),
+});
 
 //return validation schema for token route
 const loginSchema = Joi.object({
@@ -16,4 +24,4 @@ const loginSchema = Joi.object({
   password: Joi.string().required(),
 });
 
-module.exports = { registrationSchema, loginSchema };
+module.exports = { registrationSchema, loginSchema, updateUserSchema };
