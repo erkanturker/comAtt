@@ -10,6 +10,8 @@ async function commonBeforeAll() {
 
   await db.query(`DELETE FROM groups`);
 
+  await db.query("DELETE FROM students");
+
   await db.query(
     `
   INSERT INTO users(username,

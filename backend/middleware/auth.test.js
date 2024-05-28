@@ -2,7 +2,6 @@ const { authJWT, ensureIsAdmin, ensureCorrectUserOrAdmin } = require("./auth");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config");
 const { UnauthorizedError } = require("../expressError");
-const { locals } = require("../app");
 
 const user = {
   username: "test",
@@ -105,9 +104,9 @@ describe("ensure is user or admin", () => {
     ensureCorrectUserOrAdmin(req, res, next);
   });
 
-  test("should return unauthorized error if username is different for path paramather", () => {
+  test("should return unauthorized error if role is different than teacher or admin", () => {
     const req = { params: { username: "nonExistUser" } };
-    const res = { locals: { user: { ...user, role: "teacher" } } };
+    const res = { locals: { user: { ...user, role: "test" } } };
     const next = (err) => {
       expect(err instanceof UnauthorizedError).toBeTruthy();
     };

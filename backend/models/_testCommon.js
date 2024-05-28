@@ -43,6 +43,8 @@ async function commonAfterEach() {
 }
 
 async function commonAfterAll() {
+  await db.query("DELETE FROM users");
+  await db.query("DELETE FROM groups");
   await db.end();
 }
 
