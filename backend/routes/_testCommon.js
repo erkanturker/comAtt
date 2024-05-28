@@ -12,6 +12,8 @@ async function commonBeforeAll() {
 
   await db.query("DELETE FROM students");
 
+  await db.query("DELETE FROM terms");
+
   await db.query(
     `
   INSERT INTO users(username,

@@ -26,3 +26,11 @@ CREATE TABLE students (
   parent_phone VARCHAR(15) NOT NULL,
   parent_email TEXT NOT NULL
 );
+
+
+CREATE TABLE terms (
+  term_id SERIAL PRIMARY KEY,
+  term_name VARCHAR(50) UNIQUE NOT NULL,
+  start_date DATE,
+  end_date DATE
+);
