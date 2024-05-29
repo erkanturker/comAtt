@@ -46,7 +46,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
     }
 
     const { teacherId } = req.body;
-    const teacher = await User.get(teacherId); // Assuming User.get method fetches a user by id
+    const teacher = await User.get(teacherId); 
     if (!teacher) {
       throw new BadRequestError(`No teacher found with id: ${teacherId}`);
     }

@@ -40,3 +40,18 @@ CREATE TABLE subjects(
     subject_name VARCHAR(100) NOT NULL,
     teacher_id VARCHAR(50) REFERENCES users(username) ON DELETE SET NULL
 );
+
+CREATE TABLE periods (
+    period_id SERIAL PRIMARY KEY,
+    period_number INT NOT NULL,
+    subject_id INT REFERENCES subjects(subject_id),
+    group_id INT REFERENCES groups(group_id),
+    term_id INT REFERENCES terms(term_id),
+    date DATE NOT NULL,
+    CONSTRAINT unique_period UNIQUE (group_id, subject_id, term_id, date, period_number)
+);
+
+CREATE INDEX idx_period_group_id ON periods (group_id);
+CREATE INDEX idx_period_subject_id ON periods (subject_id);
+CREATE INDEX idx_period_term_id ON periods (term_id);
+CREATE INDEX idx_period_date ON periods (date);

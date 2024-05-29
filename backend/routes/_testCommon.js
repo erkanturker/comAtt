@@ -4,8 +4,11 @@ const { BCRYPT_WORK_FACTOR } = require("../config");
 const createToken = require("../helpers/token");
 
 let groupIds = [];
+let subjectIds = [];
+let termData = { termId: null };
 
 async function commonBeforeAll() {
+  await db.query("DELETE FROM periods");
   await db.query(`DELETE FROM users`);
   await db.query(`DELETE FROM groups`);
   await db.query("DELETE FROM students");
@@ -35,6 +38,21 @@ async function commonBeforeAll() {
     RETURNING group_id AS id`);
 
   groupIds.splice(0, 0, ...resultGroup.rows.map((r) => r.id));
+
+  const resultSubjects = await db.query(`
+  INSERT INTO subjects (subject_name, teacher_id)
+  VALUES ( 'Math', 'u2'),
+         ('Science', 'u2')
+         RETURNING subject_id AS id`);
+  subjectIds.splice(0, 0, ...resultSubjects.rows.map((r) => r.id));
+
+  const resultTerm = await db.query(`
+INSERT INTO 
+terms (term_name, start_date, end_date)
+VALUES ('Summer 2024','2024-06-01', '2024-08-01')
+RETURNING term_id AS id`);
+
+  termData.termId = resultTerm.rows[0].id;
 }
 async function commonBeforeEach() {
   await db.query("BEGIN");
@@ -73,4 +91,6 @@ module.exports = {
   commonBeforeEach,
   commonAfterEach,
   groupIds,
+  subjectIds,
+  termData,
 };
