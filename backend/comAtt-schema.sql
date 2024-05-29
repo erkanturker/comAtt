@@ -34,3 +34,9 @@ CREATE TABLE terms (
   start_date DATE,
   end_date DATE
 );
+
+CREATE TABLE subjects(
+    subject_id SERIAL PRIMARY KEY,
+    subject_name VARCHAR(100) NOT NULL,
+    teacher_id VARCHAR(50) REFERENCES users(username) ON DELETE SET NULL
+);

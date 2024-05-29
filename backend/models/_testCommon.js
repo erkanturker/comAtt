@@ -9,6 +9,8 @@ async function commonBeforeAll() {
 
   await db.query(`DELETE FROM groups`);
 
+  await db.query("DELETE FROM subjects");
+
   await db.query(
     `
   INSERT INTO users(username,
@@ -45,6 +47,7 @@ async function commonAfterEach() {
 async function commonAfterAll() {
   await db.query("DELETE FROM users");
   await db.query("DELETE FROM groups");
+  await db.query("DELETE FROM subjects");
   await db.end();
 }
 

@@ -7,12 +7,10 @@ let groupIds = [];
 
 async function commonBeforeAll() {
   await db.query(`DELETE FROM users`);
-
   await db.query(`DELETE FROM groups`);
-
   await db.query("DELETE FROM students");
-
   await db.query("DELETE FROM terms");
+  await db.query("DELETE FROM subjects");
 
   await db.query(
     `
@@ -47,6 +45,7 @@ async function commonAfterEach() {
 }
 
 async function commonAfterAll() {
+  await db.query("DELETE FROM subjects");
   await db.end();
 }
 
