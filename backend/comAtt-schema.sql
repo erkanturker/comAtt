@@ -17,7 +17,7 @@ group_name VARCHAR(255)  NOT NULL
 
 CREATE TABLE students (
   student_id SERIAL PRIMARY KEY,
-  group_id INT REFERENCES groups(group_id),
+  group_id INT REFERENCES groups(group_id) ON DELETE SET NULL,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   age INT,
@@ -55,3 +55,12 @@ CREATE INDEX idx_period_group_id ON periods (group_id);
 CREATE INDEX idx_period_subject_id ON periods (subject_id);
 CREATE INDEX idx_period_term_id ON periods (term_id);
 CREATE INDEX idx_period_date ON periods (date);
+
+
+CREATE TABLE attendances (
+  attendance_id  SERIAL PRIMARY KEY,
+  student_id INT REFERENCES students(student_id),
+  period_id  INT REFERENCES periods(period_id),
+  date DATE,
+  status BOOLEAN NOT NULL
+);

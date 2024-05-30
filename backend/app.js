@@ -6,6 +6,7 @@ const studentsRoutes = require("./routes/students");
 const termsRoutes = require("./routes/terms");
 const subjectsRoutes = require("./routes/subjects");
 const periodsRoutes = require("./routes/periods");
+const attendancesRoutes = require("./routes/attendances");
 
 const { NotFoundError } = require("./expressError");
 const { authJWT } = require("./middleware/auth");
@@ -21,6 +22,7 @@ app.use("/students", studentsRoutes);
 app.use("/terms", termsRoutes);
 app.use("/subjects", subjectsRoutes);
 app.use("/periods", periodsRoutes);
+app.use("/attendances", attendancesRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {

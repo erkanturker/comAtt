@@ -4,12 +4,16 @@ const { BCRYPT_WORK_FACTOR } = require("../config");
 
 let groupIds = [];
 let subjectIds = [];
+let studentIds = [];
+let periodIds = [];
 let termData = { termId: null };
 
 async function commonBeforeAll() {
+  await db.query("DELETE FROM attendances");
+  await db.query("DELETE FROM students");
   await db.query("DELETE FROM periods");
-  await db.query(`DELETE FROM users`);
-  await db.query(`DELETE FROM groups`);
+  await db.query("DELETE FROM users");
+  await db.query("DELETE FROM groups");
   await db.query("DELETE FROM subjects");
   await db.query("DELETE FROM terms");
 
@@ -37,6 +41,16 @@ async function commonBeforeAll() {
 
   groupIds.splice(0, 0, ...resultGroup.rows.map((r) => r.id));
 
+  const studentResult = await db.query(
+    `INSERT INTO students (group_id, first_name, last_name, age, parent_first_name, parent_last_name, parent_phone, parent_email)
+     VALUES ($1, 'John', 'Doe', 10, 'Jane', 'Doe', '123-456-7890', 'jane.doe@example.com'),
+            ($2, 'Jane', 'Smith', 12, 'John', 'Smith', '987-654-3210', 'john.smith@example.com')
+     RETURNING student_id AS id`,
+    [groupIds[0], groupIds[1]]
+  );
+
+  studentIds.splice(0, 0, ...studentResult.rows.map((row) => row.id));
+
   const resultSubjects = await db.query(`
     INSERT INTO subjects (subject_name, teacher_id)
     VALUES ( 'Math', 'u2'),
@@ -51,6 +65,16 @@ async function commonBeforeAll() {
   RETURNING term_id AS id`);
 
   termData.termId = resultTerm.rows[0].id;
+
+  // Insert periods
+  const periodResult = await db.query(
+    `INSERT INTO periods (period_number, subject_id, group_id, term_id, date)
+     VALUES (1, $1, $2, $3, '2024-01-07'),
+            (2, $1, $2, $3, '2024-01-14')
+     RETURNING period_id AS id`,
+    [subjectIds[0], groupIds[0], termData.termId]
+  );
+  periodIds.splice(0, 0, ...periodResult.rows.map((row) => row.id));
 }
 
 async function commonBeforeEach() {
@@ -62,12 +86,13 @@ async function commonAfterEach() {
 }
 
 async function commonAfterAll() {
+  await db.query("DELETE FROM attendances");
+  await db.query("DELETE FROM students");
   await db.query("DELETE FROM periods");
   await db.query("DELETE FROM users");
   await db.query("DELETE FROM groups");
   await db.query("DELETE FROM subjects");
   await db.query("DELETE FROM terms");
-
   await db.end();
 }
 
@@ -79,4 +104,6 @@ module.exports = {
   groupIds,
   subjectIds,
   termData,
+  studentIds,
+  periodIds,
 };

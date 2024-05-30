@@ -17,7 +17,7 @@ describe("Period model", function () {
 
   beforeAll(async () => {
     periodData = {
-      periodNumber: 1,
+      periodNumber: 2,
       subjectId: subjectIds[0],
       groupId: groupIds[0],
       termId: termData.termId,
@@ -29,7 +29,7 @@ describe("Period model", function () {
     const period = await Period.create(periodData);
     expect(period).toEqual({
       periodId: expect.any(Number),
-      periodNumber: 1,
+      periodNumber: 2,
       subjectId: subjectIds[0],
       groupId: groupIds[0],
       termId: termData.termId,
@@ -40,14 +40,14 @@ describe("Period model", function () {
 
   test("get all periods", async function () {
     const periods = await Period.getAll();
-    expect(periods.length).toEqual(1);
+    expect(periods.length > 0).toBeTruthy();
   });
 
   test("get a period by ID", async function () {
     const period = await Period.getById(periodId);
     expect(period).toEqual({
       periodId: periodId,
-      periodNumber: 1,
+      periodNumber: 2,
       subjectId: subjectIds[0],
       groupId: groupIds[0],
       termId: termData.termId,
@@ -57,13 +57,13 @@ describe("Period model", function () {
 
   test("update a period", async function () {
     const updatedData = {
-      periodNumber: 2,
+      periodNumber: 3,
       date: "2024-01-14",
     };
     const updatedPeriod = await Period.update(periodId, updatedData);
     expect(updatedPeriod).toEqual({
       periodId: periodId,
-      periodNumber: 2,
+      periodNumber: 3,
       subjectId: subjectIds[0],
       groupId: groupIds[0],
       termId: termData.termId,

@@ -5,9 +5,12 @@ const createToken = require("../helpers/token");
 
 let groupIds = [];
 let subjectIds = [];
+let studentIds = [];
+let periodIds = [];
 let termData = { termId: null };
 
 async function commonBeforeAll() {
+  await db.query("DELETE FROM attendances");
   await db.query("DELETE FROM periods");
   await db.query(`DELETE FROM users`);
   await db.query(`DELETE FROM groups`);
@@ -39,6 +42,15 @@ async function commonBeforeAll() {
 
   groupIds.splice(0, 0, ...resultGroup.rows.map((r) => r.id));
 
+  const studentResult = await db.query(
+    `INSERT INTO students (group_id, first_name, last_name, age, parent_first_name, parent_last_name, parent_phone, parent_email)
+     VALUES ($1, 'John', 'Doe', 10, 'Jane', 'Doe', '123-456-7890', 'jane.doe@example.com'),
+            ($2, 'Jane', 'Smith', 12, 'John', 'Smith', '987-654-3210', 'john.smith@example.com')
+     RETURNING student_id AS id`,
+    [groupIds[0], groupIds[1]]
+  );
+
+  studentIds.splice(0, 0, ...studentResult.rows.map((row) => row.id));
   const resultSubjects = await db.query(`
   INSERT INTO subjects (subject_name, teacher_id)
   VALUES ( 'Math', 'u2'),
@@ -53,6 +65,15 @@ VALUES ('Summer 2024','2024-06-01', '2024-08-01')
 RETURNING term_id AS id`);
 
   termData.termId = resultTerm.rows[0].id;
+  // Insert periods
+  const periodResult = await db.query(
+    `INSERT INTO periods (period_number, subject_id, group_id, term_id, date)
+     VALUES (6, $1, $2, $3, '2024-01-07'),
+            (5, $1, $2, $3, '2024-01-14')
+     RETURNING period_id AS id`,
+    [subjectIds[0], groupIds[0], termData.termId]
+  );
+  periodIds.splice(0, 0, ...periodResult.rows.map((row) => row.id));
 }
 async function commonBeforeEach() {
   await db.query("BEGIN");
@@ -63,7 +84,6 @@ async function commonAfterEach() {
 }
 
 async function commonAfterAll() {
-  await db.query("DELETE FROM subjects");
   await db.end();
 }
 
@@ -93,4 +113,6 @@ module.exports = {
   groupIds,
   subjectIds,
   termData,
+  studentIds,
+  periodIds,
 };
