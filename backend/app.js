@@ -1,4 +1,10 @@
+"use strict";
+
 const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const path = require("path"); // Add this line
+
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const groupsRoutes = require("./routes/groups");
@@ -12,9 +18,12 @@ const { NotFoundError } = require("./expressError");
 const { authJWT } = require("./middleware/auth");
 
 const app = express();
-app.use(express.json());
 
+app.use(cors());
+app.use(express.json());
+app.use(morgan("tiny"));
 app.use(authJWT);
+
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/groups", groupsRoutes);
@@ -38,6 +47,11 @@ app.use((err, req, res, next) => {
   return res.status(status).json({
     error: { message, status },
   });
+});
+
+// Serve index.html for all routes
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 module.exports = app;

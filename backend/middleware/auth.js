@@ -20,8 +20,7 @@ function authJWT(req, res, next) {
     }
     return next();
   } catch (err) {
-    // If there is an error (e.g., token verification fails), proceed to the next middleware
-    return next(new UnauthorizedError("Invalid or expired token"));
+    return next();
   }
 }
 

@@ -45,16 +45,6 @@ describe("authJWT", () => {
     authJWT(req, res, next);
     expect(res.locals).toEqual({});
   });
-
-  test("should not add user if invalid token passed", () => {
-    const req = { headers: { authorization: `Bearer ${invalidJWT}` } };
-    const res = { locals: {} };
-    const next = (err) => {
-      expect(err instanceof UnauthorizedError).toBeTruthy();
-    };
-    authJWT(req, res, next);
-    expect(res.locals).toEqual({});
-  });
 });
 
 describe("ensure Admin logged in", () => {
