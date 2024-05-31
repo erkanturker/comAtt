@@ -6,10 +6,22 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./LoginPage.css"; // Import the CSS file
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
+import useFormData from "../hooks/useFormData";
 
 const LoginPage = () => {
-  const { isLogin, login } = useAuth();
-  if (isLogin) {
+  const [formData, setFormData] = useFormData({
+    username: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(formData);
+  };
+
+  const { isLogin, login, currentUser } = useAuth();
+  console.log(currentUser);
+  if (currentUser) {
     return <Navigate to="/" />;
   }
 
@@ -19,13 +31,15 @@ const LoginPage = () => {
         <FontAwesomeIcon icon={faUser} className="login-icon" />
         <h2 className="login-title">STUDENT ATTENDANCE SYSTEM</h2>
         <h4 className="login-title">Login Panel</h4>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicUsername">
             <Form.Control
               className="login-input"
               name="username"
               type="text"
               placeholder="admin@mail.com"
+              onChange={setFormData}
+              value={formData.username}
               required
             />
           </Form.Group>
@@ -34,6 +48,8 @@ const LoginPage = () => {
               className="login-input"
               type="password"
               name="password"
+              onChange={setFormData}
+              value={formData.password}
               placeholder="Enter password"
               required
             />
