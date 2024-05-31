@@ -22,7 +22,7 @@ function App() {
         >
           ☰
         </button>
-        <Outlet />
+        <Outlet /> 
       </Container>
     </div>
   );
