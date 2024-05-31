@@ -3,11 +3,13 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import ComAttApi from "../api";
 import { jwtDecode } from "jwt-decode";
+import LoadingSpinner from "../components/CommonJsx/LoadingSpinner";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
+  const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage("authToken");
 
@@ -24,6 +26,7 @@ export const AuthProvider = ({ children }) => {
           console.error("App loadUserInfo: problem loading", err);
         }
       }
+      setInfoLoaded(true);
     }
     getCurrentUser();
   }, [token]);
@@ -38,7 +41,10 @@ export const AuthProvider = ({ children }) => {
       setIsLogin(false);
     }
   };
+
   const logout = () => setIsLogin(false);
+
+  if (!infoLoaded) return <LoadingSpinner />;
 
   return (
     <AuthContext.Provider value={{ isLogin, login, logout, currentUser }}>

@@ -4,7 +4,6 @@ import { Container } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 import "./App.css"; // Import your CSS file
 import Sidebar from "./components/Sidebar";
-import { useAuth } from "./contexts/AuthContext";
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
