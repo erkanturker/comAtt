@@ -1,14 +1,16 @@
 // src/components/Sidebar.jsx
 import React from "react";
-import { Nav } from "react-bootstrap";
+import { Nav, NavLink } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPowerOff,
   faTachometerAlt,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../contexts/AuthContext";
 
 function Sidebar({ isOpen }) {
+  const { logout } = useAuth();
   return (
     <div
       className={`bg-light border-right sidebar ${isOpen ? "" : "collapsed"}`}
@@ -34,6 +36,8 @@ function Sidebar({ isOpen }) {
         <Nav.Link
           href="#"
           className="d-flex align-items-center my-1 border-bottom"
+          as={NavLink}
+          onClick={logout}
         >
           <FontAwesomeIcon icon={faPowerOff} className="px-2" />
           Logout

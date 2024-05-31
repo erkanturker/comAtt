@@ -42,12 +42,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => setIsLogin(false);
+  const logout = () => {
+    setCurrentUser(null);
+    setToken(null);
+  };
 
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
-    <AuthContext.Provider value={{ isLogin, login, logout, currentUser }}>
+    <AuthContext.Provider
+      value={{ isLogin, login, logout, currentUser, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
