@@ -8,7 +8,6 @@ import LoadingSpinner from "../components/CommonJsx/LoadingSpinner";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLogin, setIsLogin] = useState(false);
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage("authToken");
@@ -35,10 +34,11 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = await ComAttApi.authToken(loginData);
       setToken(token);
-      setIsLogin(true);
+
+      return { result: "success" };
     } catch (error) {
       console.error("login failed", error);
-      setIsLogin(false);
+      return { result: false, error };
     }
   };
 
@@ -50,9 +50,7 @@ export const AuthProvider = ({ children }) => {
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
-    <AuthContext.Provider
-      value={{ isLogin, login, logout, currentUser, logout }}
-    >
+    <AuthContext.Provider value={{ login, logout, currentUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

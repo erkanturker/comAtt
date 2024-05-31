@@ -1,12 +1,13 @@
 // src/components/LoginPage.jsx
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./LoginPage.css"; // Import the CSS file
 import { useAuth } from "../contexts/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useFormData from "../hooks/useFormData";
+import CustomAlert from "../components/CommonJsx/CustomAlert";
 
 const LoginPage = () => {
   const [formData, setFormData] = useFormData({
@@ -14,19 +15,37 @@ const LoginPage = () => {
     password: "",
   });
 
+  const [formErrors, setFormErrors] = useState([]);
+  const [alertVisible, setAlertVisible] = useState(true);
+  const navigate = useNavigate();
+  const { login, currentUser } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(formData);
+    const result = await login(formData);
+    if (result.success) {
+      navigate("/");
+    } else {
+      setFormErrors((previous) => [...previous, result.error]);
+      setAlertVisible(true);
+    }
   };
 
-  const { isLogin, login, currentUser } = useAuth();
-  console.log(currentUser);
   if (currentUser) {
     return <Navigate to="/" />;
   }
 
   return (
     <Container className="login-container">
+      {formErrors.length > 0 && alertVisible && (
+        <CustomAlert
+          type="danger"
+          title="Oh snap! You got an error!"
+          messages={formErrors}
+          visible={alertVisible}
+          onClose={() => setAlertVisible(false)}
+        />
+      )}
       <div className="login-card">
         <FontAwesomeIcon icon={faUser} className="login-icon" />
         <h2 className="login-title">STUDENT ATTENDANCE SYSTEM</h2>
