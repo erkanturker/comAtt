@@ -4,8 +4,15 @@ import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./LoginPage.css"; // Import the CSS file
+import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const { isLogin, login } = useAuth();
+  if (isLogin) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <Container className="login-container">
       <div className="login-card">
