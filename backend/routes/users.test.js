@@ -29,7 +29,7 @@ describe("POST /create new User", () => {
       .set("authorization", `Bearer ${adminToken}`);
 
     expect(resp.statusCode).toBe(201);
-    expect(resp.body.username).toBe("testNewUser");
+    expect(resp.body.user.username).toBe("testNewUser");
   });
 
   test("should return 400 when it is duplicate", async () => {
