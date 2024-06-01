@@ -12,8 +12,8 @@ const useFormData = (intialValue) => {
     const { name, value } = e.target;
     setFormData((data) => ({ ...data, [name]: value }));
   };
-  
-  return [formData, updateFormData];
+
+  return [formData, updateFormData, setFormData];
 };
 
 export default useFormData;

@@ -59,6 +59,16 @@ class ComAttApi {
     const resp = await this.request(`users/${username}`);
     return resp.user;
   }
+
+  static async getAllUsers() {
+    const resp = await this.request(`users`);
+    return resp.users;
+  }
+
+  static async createUser(data) {
+    const resp = await this.request(`users`, data, "post");
+    return resp.user;
+  }
 }
 
 export default ComAttApi;
