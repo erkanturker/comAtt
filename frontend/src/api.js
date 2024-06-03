@@ -74,6 +74,36 @@ class ComAttApi {
     const resp = await this.request(`users/${username}`, {}, "delete");
     return resp.status;
   }
+
+  //groups
+  static async getGroups() {
+    const resp = await this.request("groups");
+    return resp.groups;
+  }
+
+  //create Group
+  static async createGroup(data) {
+    const resp = await this.request("groups", data, "post");
+    return resp.group;
+  }
+
+  //remove Group
+  static async removeGroup(id) {
+    const resp = await this.request(`groups/${id}`, {}, "delete");
+    return resp.status;
+  }
+
+  static async getAll(endpoint) {
+    return this.request(endpoint);
+  }
+
+  static async create(endpoint, data) {
+    return this.request(endpoint, data, "post");
+  }
+
+  static async remove(endpoint, id) {
+    return this.request(`${endpoint}/${id}`, {}, "delete");
+  }
 }
 
 export default ComAttApi;

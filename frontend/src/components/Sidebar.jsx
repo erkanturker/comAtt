@@ -7,6 +7,7 @@ import {
   faPowerOff,
   faTachometerAlt,
   faUsers,
+  faUsersLine,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -35,6 +36,14 @@ function Sidebar({ isOpen }) {
         >
           <FontAwesomeIcon icon={faUsers} className="px-2" />
           Users
+        </Nav.Link>
+        <Nav.Link
+          as={NavLink}
+          to="/groups"
+          className="d-flex align-items-center my-1 border-bottom"
+        >
+          <FontAwesomeIcon icon={faUsersLine} className="px-2" />
+          Groups
         </Nav.Link>
         <Nav.Link
           className="d-flex align-items-center my-1 border-bottom"

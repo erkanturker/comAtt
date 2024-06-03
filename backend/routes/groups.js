@@ -31,7 +31,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 
     const group = await Group.create(req.body.groupName);
 
-    return res.status(201).json(group);
+    return res.status(201).json({ group });
   } catch (err) {
     return next(err);
   }
@@ -116,19 +116,18 @@ router.delete("/:id", ensureIsAdmin, async (req, res, next) => {
  * - id (number): The ID of the group to update.
  * Request body:
  * - groupName (string): The new name of the group.
- * 
+ *
  * PATCH /groups/1
  * {
  *   "groupName": "Updated Group"
  * }
- * 
+ *
  * Response:
  * {
  *   "groupId": 1,
  *   "groupName": "Updated Group"
  * }
  */
-
 
 router.patch("/:id", ensureIsAdmin, async (req, res, next) => {
   try {

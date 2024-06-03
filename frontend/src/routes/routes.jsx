@@ -6,6 +6,7 @@ import Dashboard from "../components/Dashboard";
 import Users from "../components/Users/Users";
 import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
+import GroupManagement from "../components/GroupManagement";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes roles={["admin"]}>
             <Users />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "groups",
+        element: (
+          <PrivateRoutes roles={["admin"]}>
+            <GroupManagement />
           </PrivateRoutes>
         ),
       },
