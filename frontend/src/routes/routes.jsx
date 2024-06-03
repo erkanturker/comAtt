@@ -3,7 +3,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Dashboard from "../components/Dashboard";
-import Users from "../components/Users";
+import Users from "../components/Users/Users";
 import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import useFormData from "../hooks/useFormData";
-import ComAttApi from "../api";
+import useFormData from "../../hooks/useFormData";
 
 const CreateUserFrom = ({ onCreateUser }) => {
   const intialData = {
@@ -14,15 +13,10 @@ const CreateUserFrom = ({ onCreateUser }) => {
   };
   const [formData, handleChange, setFormData] = useFormData(intialData);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const newUser = await ComAttApi.createUser(formData);
-      onCreateUser(newUser);
-      setFormData(intialData);
-    } catch (error) {
-      console.error("There was an error creating the user!", error);
-    }
+    onCreateUser(formData);
+    setFormData(intialData);
   };
 
   return (

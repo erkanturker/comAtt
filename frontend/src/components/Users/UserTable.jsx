@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 
-const UserTable = ({ users }) => {
+const UserTable = ({ users, onDelete }) => {
   return (
     <Row style={{ background: "white" }} className="pt-4 m-1 mt-5">
       <Col md={12}>
@@ -26,7 +26,13 @@ const UserTable = ({ users }) => {
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>
-                  <Button variant="danger" size="sm">
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => {
+                      onDelete(user.username);
+                    }}
+                  >
                     Delete
                   </Button>
                 </td>

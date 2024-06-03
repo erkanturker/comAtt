@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
-    <AuthContext.Provider value={{ login, logout, currentUser, logout }}>
+    <AuthContext.Provider value={{ login, currentUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

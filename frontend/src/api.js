@@ -69,6 +69,11 @@ class ComAttApi {
     const resp = await this.request(`users`, data, "post");
     return resp.user;
   }
+
+  static async removeUser(username) {
+    const resp = await this.request(`users/${username}`, {}, "delete");
+    return resp.status;
+  }
 }
 
 export default ComAttApi;
