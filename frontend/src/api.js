@@ -111,6 +111,25 @@ class ComAttApi {
     return resp.status;
   }
 
+  // get all getTerms
+
+  static async getTerms() {
+    const resp = await this.request("terms");
+    return resp.terms;
+  }
+
+  //create terms
+  static async createTerm(data) {
+    const resp = await this.request("terms", data, "post");
+    return resp.term;
+  }
+
+  //remove Term
+  static async removeTerm(id) {
+    const resp = await this.request(`terms/${id}`, {}, "delete");
+    return resp.status;
+  }
+
   static async getAll(endpoint) {
     return this.request(endpoint);
   }

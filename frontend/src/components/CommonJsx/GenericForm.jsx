@@ -2,6 +2,8 @@
 import React from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import useFormData from "../../hooks/useFormData";
+import DatePicker from "react-datepicker";
+import "./GenericForm.css";
 
 const GenericForm = ({
   initialData,
@@ -16,6 +18,13 @@ const GenericForm = ({
     e.preventDefault();
     await onSubmit(formData);
     setFormData(initialData);
+  };
+
+  const handleDateChange = (date, name) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: date,
+    }));
   };
 
   return (
@@ -43,6 +52,15 @@ const GenericForm = ({
                     </option>
                   ))}
                 </Form.Select>
+              ) : field.type === "date" ? (
+                <div className="date-picker-container">
+                  <DatePicker
+                    type="date"
+                    selected={formData[field.name]}
+                    onChange={(date) => handleDateChange(date, field.name)}
+                    className="form-control"
+                  />
+                </div>
               ) : (
                 <Form.Control
                   type={field.type}
