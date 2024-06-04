@@ -29,7 +29,7 @@ const GenericForm = ({
                 {field.label} <span className="text-danger">*</span>
               </Form.Label>
               {field.type === "select" ? (
-                <Form.Control
+                <Form.Select
                   as="select"
                   name={field.name}
                   value={formData[field.name]}
@@ -42,7 +42,7 @@ const GenericForm = ({
                       {option.label}
                     </option>
                   ))}
-                </Form.Control>
+                </Form.Select>
               ) : (
                 <Form.Control
                   type={field.type}
