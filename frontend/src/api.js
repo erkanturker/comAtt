@@ -93,6 +93,24 @@ class ComAttApi {
     return resp.status;
   }
 
+  //students
+  static async getStudents() {
+    const resp = await this.request("students");
+    return resp.students;
+  }
+
+  //create Students
+  static async createStudent(data) {
+    const resp = await this.request("students", data, "post");
+    return resp.student;
+  }
+
+  //remove Students
+  static async removeStudents(id) {
+    const resp = await this.request(`students/${id}`, {}, "delete");
+    return resp.status;
+  }
+
   static async getAll(endpoint) {
     return this.request(endpoint);
   }

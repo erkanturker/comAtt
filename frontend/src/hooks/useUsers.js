@@ -7,6 +7,7 @@ const useUsers = () => {
     fetchFunction: ComAttApi.getAllUsers.bind(ComAttApi),
     createFunction: ComAttApi.createUser.bind(ComAttApi),
     deleteFunction: ComAttApi.removeUser.bind(ComAttApi),
+    idKey: "username",
   });
 };
 

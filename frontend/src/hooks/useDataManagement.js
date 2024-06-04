@@ -5,6 +5,7 @@ const useDataManagement = ({
   fetchFunction,
   createFunction,
   deleteFunction,
+  idKey = "id",
 }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -65,12 +66,12 @@ const useDataManagement = ({
     try {
       setLoading(true);
       await deleteFunction(id);
-      setData((prevData) => prevData.filter((item) => item.id !== id));
+      setData((prevData) => prevData.filter((item) => item[idKey] !== id));
       setAlert({
         visible: true,
         messages: [`Item removed successfully.`],
-        type: "success",
-        title: "Success",
+        type: "info",
+        title: "Info",
       });
     } catch (error) {
       setAlert({

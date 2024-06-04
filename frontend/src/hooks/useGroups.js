@@ -7,6 +7,7 @@ const useGroups = () => {
     fetchFunction: ComAttApi.getGroups.bind(ComAttApi),
     createFunction: ComAttApi.createGroup.bind(ComAttApi),
     deleteFunction: ComAttApi.removeGroup.bind(ComAttApi),
+    idKey: "groupId",
   });
 };
 

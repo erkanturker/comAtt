@@ -8,6 +8,7 @@ import {
   faTachometerAlt,
   faUsers,
   faUsersLine,
+  faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -44,6 +45,14 @@ function Sidebar({ isOpen }) {
         >
           <FontAwesomeIcon icon={faUsersLine} className="px-2" />
           Groups
+        </Nav.Link>
+        <Nav.Link
+          as={NavLink}
+          to="/students"
+          className="d-flex align-items-center my-1 border-bottom"
+        >
+          <FontAwesomeIcon icon={faUserGraduate} className="px-2" />
+          Students
         </Nav.Link>
         <Nav.Link
           className="d-flex align-items-center my-1 border-bottom"

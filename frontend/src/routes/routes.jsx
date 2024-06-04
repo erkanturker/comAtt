@@ -7,6 +7,7 @@ import GroupManagement from "../components/GroupManagement";
 import UserManagment from "../components/UserManagment";
 import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
+import StudentManagement from "../components/StudentManagement";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes roles={["admin"]}>
             <GroupManagement />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "students",
+        element: (
+          <PrivateRoutes roles={["admin"]}>
+            <StudentManagement />
           </PrivateRoutes>
         ),
       },
