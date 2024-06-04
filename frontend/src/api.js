@@ -130,6 +130,26 @@ class ComAttApi {
     return resp.status;
   }
 
+  //Subjects
+  //get all subjects
+  static async getSubjects() {
+    const resp = await this.request("subjects");
+    return resp.subjects;
+  }
+
+  //create subject
+
+  static async createSubject(data) {
+    const resp = await this.request("subjects", data, "post");
+    return resp;
+  }
+
+  //remove subject
+  static async removeSubject(id) {
+    const resp = await this.request(`subjects/${id}`, {}, "delete");
+    return resp.status;
+  }
+
   static async getAll(endpoint) {
     return this.request(endpoint);
   }

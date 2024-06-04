@@ -10,6 +10,7 @@ import {
   faUsersLine,
   faUserGraduate,
   faCloudSun,
+  faChalkboard,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -62,6 +63,14 @@ function Sidebar({ isOpen }) {
         >
           <FontAwesomeIcon icon={faCloudSun} className="px-2" />
           Terms
+        </Nav.Link>
+        <Nav.Link
+          as={NavLink}
+          to="/subjects"
+          className="d-flex align-items-center my-1 border-bottom"
+        >
+          <FontAwesomeIcon icon={faChalkboard} className="px-2" />
+          Subjects
         </Nav.Link>
         <Nav.Link
           className="d-flex align-items-center my-1 border-bottom"

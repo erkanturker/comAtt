@@ -9,6 +9,7 @@ import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
 import StudentManagement from "../components/StudentManagement";
 import TermManagement from "../components/TermManagement";
+import SubjectManagement from "../components/SubjectManagement";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes roles={["admin"]}>
             <TermManagement />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "subjects",
+        element: (
+          <PrivateRoutes roles={["admin"]}>
+            <SubjectManagement />
           </PrivateRoutes>
         ),
       },
