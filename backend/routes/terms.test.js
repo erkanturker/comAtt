@@ -29,12 +29,14 @@ describe("Term Routes", () => {
 
     expect(resp.statusCode).toBe(201);
     expect(resp.body).toEqual({
-      termId: expect.any(Number),
-      termName: "Spring 2024",
-      startDate: expect.any(String),
-      endDate: expect.any(String),
+      term: {
+        termId: expect.any(Number),
+        termName: "Spring 2024",
+        startDate: expect.any(String),
+        endDate: expect.any(String),
+      },
     });
-    termId = resp.body.termId;
+    termId = resp.body.term.termId;
   });
 
   test("POST /terms - should return 400 for invalid data", async () => {
@@ -89,10 +91,12 @@ describe("Term Routes", () => {
 
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
-      termId: termId,
-      termName: "Updated Spring 2024",
-      startDate: expect.any(String),
-      endDate: expect.any(String),
+      term: {
+        termId: termId,
+        termName: "Updated Spring 2024",
+        startDate: expect.any(String),
+        endDate: expect.any(String),
+      },
     });
   });
 

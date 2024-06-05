@@ -1,16 +1,11 @@
 const db = require("../db");
 const Term = require("./term");
-const { NotFoundError, BadRequestError } = require("../expressError");
+const { NotFoundError } = require("../expressError");
 
-beforeAll(async () => {
-  // Setup initial data in the database if necessary
-  await db.query("DELETE FROM terms");
-});
+const { commonBeforeAll, commonAfterAll } = require("./_testCommon");
 
-afterAll(async () => {
-  await db.query("DELETE FROM terms");
-  await db.end();
-});
+beforeAll(commonBeforeAll);
+afterAll(commonAfterAll);
 
 describe("Term Model", () => {
   let termId;

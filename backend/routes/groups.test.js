@@ -26,10 +26,10 @@ describe("POST /groups", () => {
       })
       .set("authorization", `Bearer ${adminToken}`);
 
-    newGroupId = resp.body.groupId;
+    newGroupId = resp.body.group.groupId;
 
     expect(resp.statusCode).toBe(201);
-    expect(resp.body.groupName).toBe("Test Group");
+    expect(resp.body.group.groupName).toBe("Test Group");
   });
 
   test("should return 400 when the group name already exist", async () => {
