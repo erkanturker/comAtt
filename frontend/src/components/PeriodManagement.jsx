@@ -11,7 +11,7 @@ const PeriodManagement = () => {
   const { data: groups } = useGroups();
   const { data: terms } = useTerms();
   const { data: subjects } = useSubject();
-  const { data: periods } = usePeriods();
+  const { data: periods, addItem: addPeriods } = usePeriods();
   const [selectedTerm, setSelectedTerm] = useState("");
 
   const periodFields = [
@@ -83,7 +83,13 @@ const PeriodManagement = () => {
       <GenericForm
         title="Create Schedule"
         fields={periodFields}
-        initialData={{}}
+        onSubmit={addPeriods}
+        initialData={{
+          termId: "",
+          groupId: "",
+          subjectId: "",
+          periodNumber: "",
+        }}
       />
       <h5 className="mt-4">Filter by Term</h5>
       <Form.Group controlId="filterByTerm">
