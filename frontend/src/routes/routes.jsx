@@ -10,6 +10,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import StudentManagement from "../components/StudentManagement";
 import TermManagement from "../components/TermManagement";
 import SubjectManagement from "../components/SubjectManagement";
+import PeriodManagement from "../components/PeriodManagement";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes roles={["admin"]}>
             <SubjectManagement />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "periods",
+        element: (
+          <PrivateRoutes roles={["admin"]}>
+            <PeriodManagement />
           </PrivateRoutes>
         ),
       },

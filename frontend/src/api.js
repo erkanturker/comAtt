@@ -150,6 +150,17 @@ class ComAttApi {
     return resp.status;
   }
 
+  //periods
+  static async getPeriods() {
+    const resp = await this.request("periods");
+    return resp.periods;
+  }
+
+  static async createPeriods(data) {
+    const resp = await this.request("periods", data, "post");
+    return resp;
+  }
+
   static async getAll(endpoint) {
     return this.request(endpoint);
   }

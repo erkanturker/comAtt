@@ -11,6 +11,7 @@ import {
   faUserGraduate,
   faCloudSun,
   faChalkboard,
+  faCalendarDays,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -71,6 +72,14 @@ function Sidebar({ isOpen }) {
         >
           <FontAwesomeIcon icon={faChalkboard} className="px-2" />
           Subjects
+        </Nav.Link>
+        <Nav.Link
+          as={NavLink}
+          to="/periods"
+          className="d-flex align-items-center my-1 border-bottom"
+        >
+          <FontAwesomeIcon icon={faCalendarDays} className="px-2" />
+          Periods
         </Nav.Link>
         <Nav.Link
           className="d-flex align-items-center my-1 border-bottom"
