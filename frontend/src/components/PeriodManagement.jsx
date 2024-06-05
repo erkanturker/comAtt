@@ -12,7 +12,7 @@ const PeriodManagement = () => {
   const { data: terms } = useTerms();
   const { data: subjects } = useSubject();
   const { data: periods } = usePeriods();
-  const [selectedTerm, setSelectedTerm] = useState(null);
+  const [selectedTerm, setSelectedTerm] = useState("");
 
   const periodFields = [
     {

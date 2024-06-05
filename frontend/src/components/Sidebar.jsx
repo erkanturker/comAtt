@@ -16,7 +16,7 @@ import {
 import { useAuth } from "../contexts/AuthContext";
 
 function Sidebar({ isOpen }) {
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   return (
     <div
       className={`bg-light border-right sidebar ${isOpen ? "" : "collapsed"}`}
@@ -25,62 +25,79 @@ function Sidebar({ isOpen }) {
         <h3>ComAtt</h3>
       </div>
       <Nav className="flex-column">
-        <Nav.Link
-          as={NavLink}
-          to="/dashboard"
-          className="d-flex align-items-center my-2 border-bottom"
-        >
-          <FontAwesomeIcon icon={faTachometerAlt} className="px-2" />
-          Dashboard
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/users"
-          className="d-flex align-items-center my-1 border-bottom"
-        >
-          <FontAwesomeIcon icon={faUsers} className="px-2" />
-          Users
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/groups"
-          className="d-flex align-items-center my-1 border-bottom"
-        >
-          <FontAwesomeIcon icon={faUsersLine} className="px-2" />
-          Groups
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/students"
-          className="d-flex align-items-center my-1 border-bottom"
-        >
-          <FontAwesomeIcon icon={faUserGraduate} className="px-2" />
-          Students
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/terms"
-          className="d-flex align-items-center my-1 border-bottom"
-        >
-          <FontAwesomeIcon icon={faCloudSun} className="px-2" />
-          Terms
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/subjects"
-          className="d-flex align-items-center my-1 border-bottom"
-        >
-          <FontAwesomeIcon icon={faChalkboard} className="px-2" />
-          Subjects
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/periods"
-          className="d-flex align-items-center my-1 border-bottom"
-        >
-          <FontAwesomeIcon icon={faCalendarDays} className="px-2" />
-          Periods
-        </Nav.Link>
+        {currentUser.role === "admin" && (
+          <>
+            {" "}
+            <Nav.Link
+              as={NavLink}
+              to="/dashboard"
+              className="d-flex align-items-center my-2 border-bottom"
+            >
+              <FontAwesomeIcon icon={faTachometerAlt} className="px-2" />
+              Dashboard
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/users"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon icon={faUsers} className="px-2" />
+              Users
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/groups"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon icon={faUsersLine} className="px-2" />
+              Groups
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/students"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon icon={faUserGraduate} className="px-2" />
+              Students
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/terms"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon icon={faCloudSun} className="px-2" />
+              Terms
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/subjects"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon icon={faChalkboard} className="px-2" />
+              Subjects
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/periods"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon icon={faCalendarDays} className="px-2" />
+              Periods
+            </Nav.Link>
+          </>
+        )}
+        {currentUser.role === "teacher" && (
+          <>
+            <Nav.Link
+              as={NavLink}
+              to="/attendances"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon icon={faCalendarDays} className="px-2" />
+              Attendance
+            </Nav.Link>
+          </>
+        )}
         <Nav.Link
           className="d-flex align-items-center my-1 border-bottom"
           as={NavLink}
