@@ -169,6 +169,10 @@ class ComAttApi {
     return this.request(endpoint, data, "post");
   }
 
+  static async patch(endpoint, data) {
+    return this.request(endpoint, data, "patch");
+  }
+
   static async remove(endpoint, id) {
     return this.request(`${endpoint}/${id}`, {}, "delete");
   }
