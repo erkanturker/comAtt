@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
           const { username } = jwtDecode(token);
           console.log(username);
           ComAttApi.token = token;
-          const currentUser = await ComAttApi.getUser(username);
+          const currentUser = await ComAttApi.get(`users/${username}`);
           setCurrentUser(currentUser);
         } catch (err) {
           console.error("App loadUserInfo: problem loading", err);

@@ -55,124 +55,55 @@ class ComAttApi {
     return resp.token;
   }
 
-  static async getUser(username) {
-    const resp = await this.request(`users/${username}`);
-    return resp.user;
-  }
-
-  static async getAllUsers() {
-    const resp = await this.request(`users`);
-    return resp.users;
-  }
-
-  static async createUser(data) {
-    const resp = await this.request(`users`, data, "post");
-    return resp.user;
-  }
-
-  static async removeUser(username) {
-    const resp = await this.request(`users/${username}`, {}, "delete");
-    return resp.status;
-  }
-
-  //groups
-  static async getGroups() {
-    const resp = await this.request("groups");
-    return resp.groups;
-  }
-
-  //create Group
-  static async createGroup(data) {
-    const resp = await this.request("groups", data, "post");
-    return resp.group;
-  }
-
-  //remove Group
-  static async removeGroup(id) {
-    const resp = await this.request(`groups/${id}`, {}, "delete");
-    return resp.status;
-  }
-
-  //students
-  static async getStudents() {
-    const resp = await this.request("students");
-    return resp.students;
-  }
-
-  //create Students
-  static async createStudent(data) {
-    const resp = await this.request("students", data, "post");
-    return resp.student;
-  }
-
-  //remove Students
-  static async removeStudents(id) {
-    const resp = await this.request(`students/${id}`, {}, "delete");
-    return resp.status;
-  }
-
-  // get all getTerms
-
-  static async getTerms() {
-    const resp = await this.request("terms");
-    return resp.terms;
-  }
-
-  //create terms
-  static async createTerm(data) {
-    const resp = await this.request("terms", data, "post");
-    return resp.term;
-  }
-
-  //remove Term
-  static async removeTerm(id) {
-    const resp = await this.request(`terms/${id}`, {}, "delete");
-    return resp.status;
-  }
-
-  //Subjects
-  //get all subjects
-  static async getSubjects() {
-    const resp = await this.request("subjects");
-    return resp.subjects;
-  }
-
-  //create subject
-
-  static async createSubject(data) {
-    const resp = await this.request("subjects", data, "post");
-    return resp;
-  }
-
-  //remove subject
-  static async removeSubject(id) {
-    const resp = await this.request(`subjects/${id}`, {}, "delete");
-    return resp.status;
-  }
-
-  //periods
-  static async getPeriods() {
-    const resp = await this.request("periods");
-    return resp.periods;
-  }
-
-  static async createPeriods(data) {
-    const resp = await this.request("periods", data, "post");
-    return resp;
-  }
-
+  /**
+   * Method to get all items from an endpoint.
+   *
+   * @param {string} endpoint - The API endpoint to call.
+   * @returns {Promise} - A promise that resolves to the API response.
+   */
   static async getAll(endpoint) {
     return this.request(endpoint);
   }
 
+  /**
+   * Method to get a single item from an endpoint.
+   *
+   * @param {string} endpoint - The API endpoint to call.
+   * @returns {Promise} - A promise that resolves to the API response.
+   */
+  static async get(endpoint) {
+    return this.request(endpoint);
+  }
+
+  /**
+   * Method to create a new item.
+   *
+   * @param {string} endpoint - The API endpoint to call.
+   * @param {Object} data - The data to send for creating the item.
+   * @returns {Promise} - A promise that resolves to the API response.
+   */
   static async create(endpoint, data) {
     return this.request(endpoint, data, "post");
   }
 
+  /**
+   * Method to update an existing item.
+   *
+   * @param {string} endpoint - The API endpoint to call.
+   * @param {Object} data - The data to send for updating the item.
+   * @returns {Promise} - A promise that resolves to the API response.
+   */
   static async patch(endpoint, data) {
     return this.request(endpoint, data, "patch");
   }
 
+  /**
+   * Method to remove an existing item.
+   *
+   * @param {string} endpoint - The API endpoint to call.
+   * @param {string} id - The ID of the item to remove.
+   * @returns {Promise} - A promise that resolves to the API response.
+   */
   static async remove(endpoint, id) {
     return this.request(`${endpoint}/${id}`, {}, "delete");
   }

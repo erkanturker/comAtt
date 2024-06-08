@@ -59,7 +59,6 @@ const UserManagment = () => {
       required: true,
       options: [
         { value: "admin", label: "Admin" },
-        { value: "user", label: "User" },
         { value: "teacher", label: "Teacher" },
       ],
     },

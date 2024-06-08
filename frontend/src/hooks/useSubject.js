@@ -4,9 +4,7 @@ import ComAttApi from "../api";
 
 const useSubject = () => {
   return useDataManagement({
-    fetchFunction: ComAttApi.getSubjects.bind(ComAttApi),
-    createFunction: ComAttApi.createSubject.bind(ComAttApi),
-    deleteFunction: ComAttApi.removeSubject.bind(ComAttApi),
+    endpoint: "subjects",
     idKey: "subjectId",
   });
 };

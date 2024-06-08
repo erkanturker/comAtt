@@ -1,12 +1,17 @@
 // src/hooks/useDataManagement.js
 import { useEffect, useState } from "react";
+import ComAttApi from "../api";
 
-const useDataManagement = ({
-  fetchFunction,
-  createFunction,
-  deleteFunction,
-  idKey = "id",
-}) => {
+/**
+ * Custom hook for managing data with common CRUD operations.
+ *
+ * @param {Object} params - The parameters for the hook.
+ * @param {string} [params.idKey="id"] - The key used to identify items by ID.
+ * @param {string} params.endpoint - The API endpoint to perform operations on.
+ * @returns {Object} The data management functions and state.
+ */
+
+const useDataManagement = ({ idKey = "id", endpoint }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({
@@ -20,7 +25,7 @@ const useDataManagement = ({
     const fetchData = async () => {
       setLoading(true);
       try {
-        const fetchedData = await fetchFunction();
+        const fetchedData = await ComAttApi.getAll(endpoint);
         setData(fetchedData);
       } catch (error) {
         console.log(error);
@@ -41,7 +46,7 @@ const useDataManagement = ({
   const addItem = async (item) => {
     try {
       setLoading(true);
-      const newItem = await createFunction(item);
+      const newItem = await ComAttApi.create(endpoint, item);
       setData((prevData) => [...prevData, newItem]);
 
       setAlert({
@@ -65,7 +70,7 @@ const useDataManagement = ({
   const removeItem = async (id) => {
     try {
       setLoading(true);
-      await deleteFunction(id);
+      await ComAttApi.remove(endpoint, id);
       setData((prevData) => prevData.filter((item) => item[idKey] !== id));
       setAlert({
         visible: true,
