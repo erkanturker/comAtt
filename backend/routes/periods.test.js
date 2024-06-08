@@ -89,6 +89,7 @@ describe("GET /periods/:periodId", () => {
     expect(resp.body).toEqual({
       periodId: expect.any(Number),
       periodNumber: 4,
+      attendanceTaken: false,
       subjectId: subjectIds[0],
       groupId: groupIds[0],
       termId: termData.termId,
@@ -110,6 +111,7 @@ describe("PATCH /periods/:periodId", () => {
     const period = await Period.create({
       periodNumber: 2,
       subjectId: subjectIds[0],
+      attendanceTaken: false,
       groupId: groupIds[0],
       termId: termData.termId,
       date: "2024-01-07",
@@ -120,6 +122,7 @@ describe("PATCH /periods/:periodId", () => {
       .send({
         periodNumber: 2,
         subjectId: subjectIds[1],
+        attendanceTaken: true,
         groupId: groupIds[1],
         termId: termData.termId,
         date: "2024-01-14",
@@ -130,6 +133,7 @@ describe("PATCH /periods/:periodId", () => {
     expect(resp.body).toEqual({
       periodId: period.periodId,
       periodNumber: 2,
+      attendanceTaken: true,
       subjectId: subjectIds[1],
       groupId: groupIds[1],
       termId: termData.termId,

@@ -145,3 +145,98 @@ describe("getAll", () => {
     );
   });
 });
+
+describe("periodAttendance", () => {
+  test("should create multiple attendance records for a period", async () => {
+    const attendances = [
+      { studentId: studentIds[0], status: true },
+      { studentId: studentIds[1], status: false },
+    ];
+    const date = "2024-01-07";
+
+    await Attendance.periodAttendance(periodIds[0], attendances, date);
+
+    const result = await db.query(
+      "SELECT * FROM attendances WHERE period_id = $1",
+      [periodIds[0]]
+    );
+    expect(result.rows.length).toEqual(attendances.length);
+    expect(result.rows).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          student_id: studentIds[0],
+          status: true,
+        }),
+        expect.objectContaining({
+          student_id: studentIds[1],
+          status: false,
+        }),
+      ])
+    );
+  });
+});
+
+describe("switchStatusOfAttendance", () => {
+  test("should update the status of attendance records for a period", async () => {
+    const attendances = [
+      { studentId: studentIds[0], status: false },
+      { studentId: studentIds[1], status: true },
+    ];
+    const date = "2024-01-07";
+
+    await Attendance.periodAttendance(periodIds[0], attendances, date);
+
+    const updatedAttendances = [
+      { studentId: studentIds[0], status: true },
+      { studentId: studentIds[1], status: false },
+    ];
+
+    await Attendance.switchStatusOfAttendance(
+      periodIds[0],
+      updatedAttendances,
+      date
+    );
+
+    const result = await db.query(
+      "SELECT * FROM attendances WHERE period_id = $1",
+      [periodIds[0]]
+    );
+
+    expect(result.rows).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          student_id: studentIds[0],
+          status: true,
+        }),
+        expect.objectContaining({
+          student_id: studentIds[1],
+          status: false,
+        }),
+      ])
+    );
+  });
+});
+
+describe("getAttendanceByPeriod", () => {
+  test("should retrieve attendance records for a specific period", async () => {
+    const newAttendance1 = await Attendance.create({
+      studentId: studentIds[0],
+      periodId: periodIds[0],
+      date: "2024-01-07",
+      status: true,
+    });
+
+    const newAttendance2 = await Attendance.create({
+      studentId: studentIds[1],
+      periodId: periodIds[0],
+      date: "2024-01-07",
+      status: false,
+    });
+
+    const attendances = await Attendance.getAttendanceByPeriod(periodIds[0]);
+
+    expect(attendances).toEqual(
+      expect.arrayContaining([newAttendance1, newAttendance2])
+    );
+  });
+});

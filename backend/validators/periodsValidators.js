@@ -13,6 +13,7 @@ const updatePeriodSchema = Joi.object({
   subjectId: Joi.number().integer().optional(),
   groupId: Joi.number().integer().optional(),
   termId: Joi.number().integer().optional(),
+  attendanceTaken: Joi.boolean().optional(),
   date: Joi.date().optional(),
 });
 

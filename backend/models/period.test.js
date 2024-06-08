@@ -47,6 +47,7 @@ describe("Period model", function () {
     const period = await Period.getById(periodId);
     expect(period).toEqual({
       periodId: periodId,
+      attendanceTaken: false,
       periodNumber: 2,
       subjectId: subjectIds[0],
       groupId: groupIds[0],
@@ -63,6 +64,7 @@ describe("Period model", function () {
     const updatedPeriod = await Period.update(periodId, updatedData);
     expect(updatedPeriod).toEqual({
       periodId: periodId,
+      attendanceTaken: false,
       periodNumber: 3,
       subjectId: subjectIds[0],
       groupId: groupIds[0],

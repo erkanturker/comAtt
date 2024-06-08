@@ -1,13 +1,14 @@
 const express = require("express");
-const {
-  ensureCorrectUserOrAdmin,
-} = require("../middleware/auth");
+const { ensureCorrectUserOrAdmin } = require("../middleware/auth");
 const Attendance = require("../models/attendance");
 const { BadRequestError } = require("../expressError");
 const {
   createAttendanceSchema,
   updateAttendanceSchema,
+  periodAttendance,
 } = require("../validators/attendancesValidators");
+const { date } = require("joi");
+const Period = require("../models/period");
 
 const router = express.Router();
 
@@ -185,6 +186,152 @@ router.delete(
     try {
       await Attendance.remove(req.params.attendanceId);
       return res.json({ status: "deleted" });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+/**
+ * POST /:periodId/periodAttendance
+ * Records attendance for a specified period. Only admin or the correct user can send a request.
+ *
+ * Path Parameters:
+ * - periodId: string, required, the ID of the period.
+ *
+ * Request Body:
+ *{
+    "date": "06-06-2024",
+    "classAttendances": [
+        {
+            "studentId": "29",
+            "status": true
+        },
+        {
+            "studentId": "30",
+            "status": true
+        ]}
+ *
+ * Response:
+ * - 201: Created
+ 
+ * - 404: Not Found (if the period does not exist)
+ */
+router.post(
+  "/:periodId/periodAttendance",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const periodId = req.params.periodId;
+      await Period.getById(periodId);
+
+      const { error } = periodAttendance.validate(req.body, {
+        abortEarly: false,
+      });
+
+      if (error) {
+        const errors = error.details.map((detail) => detail.message);
+        throw new BadRequestError(errors);
+      }
+
+      const { attendances, date } = req.body;
+
+      await Attendance.periodAttendance(periodId, attendances, date);
+      await Period.update(periodId, { attendanceTaken: true });
+      return res.status(201).json({
+        message:
+          "Attendance for the selected period has been recorded successfully. ",
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+/**
+ * GET /:periodId/periodAttendance
+ * Retrieves attendance records for a specified period. Only admin or the correct user can send a request.
+ * Path Parameters:
+ * - periodId: string, required, the ID of the period.
+ * Response:
+ * - 200: OK
+ *   [
+ *     {
+ *       "attendanceId": integer,
+ *       "studentId": integer,
+ *       "periodId": integer,
+ *       "date": string,
+ *       "status": boolean
+ *     },
+ *   ]
+ * - 404: Not Found (if the period does not exist)
+ */
+
+router.get(
+  "/:periodId/periodAttendance",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const periodId = req.params.periodId;
+      await Period.getById(periodId);
+
+      const attendances = await Attendance.getAttendanceByPeriod(periodId);
+      res.json(attendances);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+/**
+ * PATCH /:periodId/updatePeriodAttendance
+ * Updates the attendance status for a specified period. Only admin or the correct user can send a request.
+ *
+ * Path Parameters:
+ * - periodId: string, required, the ID of the period.
+ *
+ * Request Body:
+ * {
+    "date": "06-06-2024",
+    "classAttendances": [
+        {
+            "studentId": "29",
+            "status": true
+        },
+        {
+            "studentId": "30",
+            "status": true
+        ]}
+ *
+ * Response:
+ * - 200: OK
+
+ * - 404: Not Found (if the period does not exist)
+ */
+
+router.patch(
+  "/:periodId/updatePeriodAttendance",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const periodId = req.params.periodId;
+      await Period.getById(periodId);
+
+      const { error } = periodAttendance.validate(req.body, {
+        abortEarly: false,
+      });
+
+      if (error) {
+        const errors = error.details.map((detail) => detail.message);
+        throw new BadRequestError(errors);
+      }
+
+      const { attendances, date } = req.body;
+      await Attendance.switchStatusOfAttendance(periodId, attendances, date);
+      return res.status(200).json({
+        message:
+          "Attendance for the selected period has been updated successfully.",
+      });
     } catch (err) {
       return next(err);
     }

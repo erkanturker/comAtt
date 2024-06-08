@@ -21,6 +21,77 @@ class Attendance {
   }
 
   /**
+   * Records attendance for a specific period.
+   *
+   * @param {number} periodId - The ID of the period for which attendance is being recorded.
+   * @param {Array} attendances - An array of attendance records, where each record is an object containing:
+   *   - {number} studentId - The ID of the student.
+   *   - {boolean} status - The attendance status (true for present, false for absent).
+   * @param {string} date - The date when the attendance is recorded.
+   * @returns {Promise<void>} - A promise that resolves when all attendance records have been successfully created.
+  
+   */
+  static async periodAttendance(periodId, attendances, date) {
+    attendances.forEach(async (attendance) => {
+      await Attendance.create({
+        studentId: attendance.studentId,
+        periodId,
+        date,
+        status: attendance.status,
+      });
+    });
+  }
+
+  /**
+   * Switches the status of attendance for a specific period.
+
+   * @param {number} periodId - The ID of the period for which attendance status is being switched.
+   * @param {Array} attendance - An array of attendance records, where each record is an object containing:
+   *   - {number} studentId - The ID of the student.
+   *   - {boolean} status - The new attendance status (true for present, false for absent).
+   * @param {string} date - The date when the attendance status is switched.
+   * @returns {Promise<void>} - A promise that resolves when all attendance statuses have been successfully updated.
+   * @throws {Error} - Throws an error if there is an issue with switching the attendance status.
+  
+   */
+
+  static async switchStatusOfAttendance(periodId, attendance, date) {
+    attendance.forEach(async (attendance) => {
+      await db.query(
+        `
+      UPDATE attendances
+      SET status=$1, date = $2
+      WHERE period_id=$3 AND student_id=$4;`,
+        [attendance.status, date, periodId, attendance.studentId]
+      );
+    });
+  }
+
+  /**
+   * Retrieves attendance records for a specific period.
+   *
+   * @param {number} periodId - The ID of the period for which attendance records are being retrieved.
+   * @returns {Promise<Array>} - A promise that resolves to an array of attendance records, where each record is an object containing:
+   *   - {number} attendanceId - The ID of the attendance record.
+   *   - {number} studentId - The ID of the student.
+   *   - {number} periodId - The ID of the period.
+   *   - {string} date - The date of the attendance record.
+   *   - {boolean} status - The attendance status (true for present, false for absent).
+   */
+
+  static async getAttendanceByPeriod(periodId) {
+    const result = await db.query(
+      `SELECT attendance_id AS "attendanceId", 
+        student_id AS "studentId", 
+        period_id AS "periodId", date, status
+       FROM attendances
+       WHERE period_id=$1`,
+      [periodId]
+    );
+    return result.rows;
+  }
+
+  /**
    * Get attendance by ID.
    *
    * @param {number} id - The ID of the attendance to retrieve.

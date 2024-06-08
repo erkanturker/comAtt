@@ -14,4 +14,20 @@ const updateAttendanceSchema = Joi.object({
   status: Joi.boolean(),
 });
 
-module.exports = { createAttendanceSchema, updateAttendanceSchema };
+const periodAttendance = Joi.object({
+  date: Joi.date().required(),
+  attendances: Joi.array()
+    .items(
+      Joi.object({
+        studentId: Joi.number().integer().required(),
+        status: Joi.boolean().required(),
+      }).required()
+    )
+    .required(),
+});
+
+module.exports = {
+  createAttendanceSchema,
+  updateAttendanceSchema,
+  periodAttendance,
+};

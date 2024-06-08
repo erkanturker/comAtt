@@ -48,6 +48,7 @@ CREATE TABLE periods (
     group_id INT REFERENCES groups(group_id),
     term_id INT REFERENCES terms(term_id),
     date DATE NOT NULL,
+    attendance_taken BOOLEAN DEFAULT FALSE,
     CONSTRAINT unique_period UNIQUE (group_id, subject_id, term_id, date, period_number)
 );
 

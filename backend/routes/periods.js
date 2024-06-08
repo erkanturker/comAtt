@@ -200,4 +200,79 @@ router.delete("/:periodId", ensureIsAdmin, async (req, res, next) => {
   }
 });
 
+/**
+ * GET /:username/upcoming-schedule
+ * Retrieves the upcoming scheduled periods for a teacher. Only admin or the correct user can send a request.
+ *
+ * Path Parameters:
+ * - username: string, required, the username of the teacher.
+ *
+ * Response:
+ * - 200: OK
+ *   [
+ *     {
+ *       "periodId": integer,
+ *       "periodNumber": integer,
+ *       "subjectId": integer,
+ *       "groupId": integer,
+ *       "termId": integer,
+ *       "date": string,
+ *       "attendanceTaken": boolean,
+ *       "subjectName": string,
+ *       "groupName": string
+ *     },
+ *     ...
+ *   ]
+ * - 404: Not Found (if the teacher or periods are not found)
+ */
+
+router.get(
+  "/:username/upcoming-schedule",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const schedule = await Period.getTeacherUpcomingScheduled(
+        req.params.username
+      );
+      return res.json(schedule);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+/**
+ * GET /:periodId/students
+ * Retrieves students for a given period ID. Only admin or the correct user can send a request.
+ *
+ * Path Parameters:
+ * - periodId: string, required, the ID of the period.
+ *
+ * Response:
+ * - 200: OK
+ *   [
+ *     {
+ *       "studentId": integer,
+ *       "firstName": string,
+ *       "lastName": string
+ *     },
+ *     ...
+ *   ]
+ * - 404: Not Found (if the period or students are not found)
+ */
+
+router.get(
+  "/:periodId/students",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    const { periodId } = req.params;
+
+    try {
+      const students = await Period.getStudentsForPeriod(periodId);
+      res.json(students);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
 module.exports = router;
