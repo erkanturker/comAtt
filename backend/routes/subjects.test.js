@@ -62,7 +62,7 @@ describe("GET /subjects", () => {
       .set("authorization", `Bearer ${teacherToken}`);
 
     expect(resp.statusCode).toBe(200);
-    expect(Array.isArray(resp.body.subjects)).toBe(true);
+    expect(Array.isArray(resp.body)).toBe(true);
   });
 
   test("should return 401 if unauthorized", async () => {

@@ -26,10 +26,10 @@ describe("POST /groups", () => {
       })
       .set("authorization", `Bearer ${adminToken}`);
 
-    newGroupId = resp.body.group.groupId;
+    newGroupId = resp.body.groupId;
 
     expect(resp.statusCode).toBe(201);
-    expect(resp.body.group.groupName).toBe("Test Group");
+    expect(resp.body.groupName).toBe("Test Group");
   });
 
   test("should return 400 when the group name already exist", async () => {
@@ -57,7 +57,7 @@ describe("GET /groups ", () => {
       .get("/groups")
       .set("authorization", `Bearer ${adminToken}`);
     expect(resp.statusCode).toBe(200);
-    expect(Array.isArray(resp.body.groups)).toBeTruthy();
+    expect(Array.isArray(resp.body)).toBeTruthy();
   });
 
   test("should return 401 unauhtorized", async () => {

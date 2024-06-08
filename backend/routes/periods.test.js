@@ -62,7 +62,7 @@ describe("GET /periods", () => {
       .set("authorization", `Bearer ${adminToken}`);
 
     expect(resp.statusCode).toBe(200);
-    expect(Array.isArray(resp.body.periods)).toBe(true);
+    expect(Array.isArray(resp.body)).toBe(true);
   });
 
   test("should return 401 for unauthorized users", async () => {

@@ -85,7 +85,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const periods = await Period.getAll();
-    return res.json({ periods });
+    return res.json(periods);
   } catch (err) {
     return next(err);
   }

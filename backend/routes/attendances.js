@@ -75,7 +75,7 @@ router.post("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
 router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const attendances = await Attendance.getAll();
-    return res.json({ attendances });
+    return res.json( attendances );
   } catch (err) {
     return next(err);
   }

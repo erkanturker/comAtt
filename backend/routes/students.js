@@ -66,7 +66,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 
     const student = await Student.create({ ...req.body });
 
-    return res.status(201).json({ student });
+    return res.status(201).json( student );
   } catch (err) {
     return next(err);
   }
@@ -98,7 +98,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const students = await Student.getAll();
-    return res.json({ students });
+    return res.json( students );
   } catch (err) {
     return next(err);
   }

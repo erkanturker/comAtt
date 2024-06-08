@@ -31,7 +31,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 
     const group = await Group.create(req.body.groupName);
 
-    return res.status(201).json({ group });
+    return res.status(201).json(group);
   } catch (err) {
     return next(err);
   }
@@ -60,7 +60,7 @@ router.get("/", ensureIsAdmin, async (req, res, next) => {
   try {
     const groups = await Group.getAll();
 
-    return res.status(200).json({ groups });
+    return res.status(200).json(groups);
   } catch (err) {
     return next(err);
   }

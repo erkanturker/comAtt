@@ -58,7 +58,7 @@ describe("GET /attendances", () => {
       .set("authorization", `Bearer ${adminToken}`);
 
     expect(resp.statusCode).toBe(200);
-    expect(Array.isArray(resp.body.attendances)).toBeTruthy();
+    expect(Array.isArray(resp.body)).toBeTruthy();
   });
 
   test("should return 401 if not authenticated", async () => {

@@ -12,7 +12,6 @@ const {
 } = require("./_testCommon");
 const Student = require("../models/student");
 
-
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
@@ -35,7 +34,7 @@ describe("POST /students", () => {
       .set("authorization", `Bearer ${adminToken}`);
 
     expect(resp.statusCode).toBe(201);
-    expect(resp.body.student).toHaveProperty("studentId");
+    expect(resp.body).toHaveProperty("studentId");
   });
 
   test("should return 400 for invalid data", async () => {
@@ -58,7 +57,7 @@ describe("GET /students", () => {
       .set("authorization", `Bearer ${teacherToken}`);
 
     expect(resp.statusCode).toBe(200);
-    expect(Array.isArray(resp.body.students)).toBe(true);
+    expect(Array.isArray(resp.body)).toBe(true);
   });
 });
 

@@ -31,7 +31,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 
     const user = await User.register({ ...req.body });
 
-    return res.status(201).json({ user });
+    return res.status(201).json(user);
   } catch (err) {
     return next(err);
   }
@@ -49,7 +49,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 router.get("/", ensureIsAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll();
-    return res.status(200).json({ users });
+    return res.status(200).json(users);
   } catch (err) {
     return next(err);
   }
@@ -67,7 +67,7 @@ router.get("/", ensureIsAdmin, async (req, res, next) => {
 router.get("/:username", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const user = await User.get(req.params.username);
-    return res.json({ user });
+    return res.json(user);
   } catch (err) {
     return next(err);
   }

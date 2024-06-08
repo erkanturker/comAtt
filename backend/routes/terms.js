@@ -43,7 +43,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
     }
 
     const term = await Term.create(req.body);
-    return res.status(201).json({ term });
+    return res.status(201).json(term);
   } catch (err) {
     return next(err);
   }
@@ -70,7 +70,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const terms = await Term.getAll();
-    return res.json({ terms });
+    return res.json(terms);
   } catch (err) {
     return next(err);
   }
@@ -139,7 +139,7 @@ router.patch("/:termId", ensureIsAdmin, async (req, res, next) => {
     }
 
     const term = await Term.update(req.params.termId, req.body);
-    return res.json({ term });
+    return res.json(term);
   } catch (err) {
     return next(err);
   }

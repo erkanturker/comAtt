@@ -46,7 +46,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
     }
 
     const { teacherId } = req.body;
-    const teacher = await User.get(teacherId); 
+    const teacher = await User.get(teacherId);
     if (!teacher) {
       throw new BadRequestError(`No teacher found with id: ${teacherId}`);
     }
@@ -82,7 +82,7 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
 router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const subjects = await Subject.getAll();
-    return res.json({ subjects });
+    return res.json(subjects);
   } catch (err) {
     return next(err);
   }

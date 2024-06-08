@@ -29,14 +29,12 @@ describe("Term Routes", () => {
 
     expect(resp.statusCode).toBe(201);
     expect(resp.body).toEqual({
-      term: {
-        termId: expect.any(Number),
-        termName: "Spring 2024",
-        startDate: expect.any(String),
-        endDate: expect.any(String),
-      },
+      termId: expect.any(Number),
+      termName: "Spring 2024",
+      startDate: expect.any(String),
+      endDate: expect.any(String),
     });
-    termId = resp.body.term.termId;
+    termId = resp.body.termId;
   });
 
   test("POST /terms - should return 400 for invalid data", async () => {
@@ -58,7 +56,7 @@ describe("Term Routes", () => {
       .set("authorization", `Bearer ${teacherToken}`);
 
     expect(resp.statusCode).toBe(200);
-    expect(Array.isArray(resp.body.terms)).toBe(true);
+    expect(Array.isArray(resp.body)).toBe(true);
   });
 
   test("GET /terms/:termId - should retrieve a single term by ID", async () => {
@@ -91,12 +89,10 @@ describe("Term Routes", () => {
 
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
-      term: {
-        termId: termId,
-        termName: "Updated Spring 2024",
-        startDate: expect.any(String),
-        endDate: expect.any(String),
-      },
+      termId: termId,
+      termName: "Updated Spring 2024",
+      startDate: expect.any(String),
+      endDate: expect.any(String),
     });
   });
 

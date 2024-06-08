@@ -29,7 +29,7 @@ describe("POST /create new User", () => {
       .set("authorization", `Bearer ${adminToken}`);
 
     expect(resp.statusCode).toBe(201);
-    expect(resp.body.user.username).toBe("testNewUser");
+    expect(resp.body.username).toBe("testNewUser");
   });
 
   test("should return 400 when it is duplicate", async () => {
@@ -63,7 +63,7 @@ describe("Get All Users", () => {
       .get("/users")
       .set("authorization", `Bearer ${adminToken}`);
     expect(resp.statusCode).toBe(200);
-    expect(resp.body.users).toBeTruthy();
+    expect(resp.body).toBeTruthy();
   });
 
   test("should first 401 without admin token", async () => {
@@ -80,13 +80,11 @@ describe("GET /users/:username", () => {
 
     expect(resp.statusCode).toBe(200);
     expect(resp.body).toEqual({
-      user: {
-        username: "u2",
-        firstName: "U2F",
-        lastName: "U2L",
-        email: "u2@email.com",
-        role: "teacher",
-      },
+      username: "u2",
+      firstName: "U2F",
+      lastName: "U2L",
+      email: "u2@email.com",
+      role: "teacher",
     });
   });
 
