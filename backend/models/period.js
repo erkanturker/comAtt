@@ -104,6 +104,37 @@ class Period {
 
     return result.rows;
   }
+  /**
+   * Retrieves the current periods, defined as periods from the current date to the upcoming school day.
+   *
+   * @returns {Promise<Array>} - A promise that resolves to an array of current periods, where each period contains:
+   **/
+
+  static async getCurrentPeriods() {
+    const result = await db.query(`
+    WITH upcoming_school_day AS (
+      SELECT p.date
+      FROM "periods" AS p
+      JOIN subjects AS s ON s.subject_id = p.subject_id
+      WHERE p.date >= CURRENT_DATE
+      GROUP BY p.date
+      ORDER BY p.date ASC
+      LIMIT 1
+    )
+    SELECT 
+      period_id AS "periodId", 
+      period_number AS "periodNumber", 
+      subject_id AS "subjectId", 
+      group_id AS "groupId", 
+      term_id AS "termId", 
+      date,  
+      attendance_taken AS "attendanceTaken"
+    FROM periods 
+    WHERE periods.date >= CURRENT_DATE 
+      AND periods.date <= (SELECT date FROM upcoming_school_day)
+`);
+    return result.rows;
+  }
 
   /**
    * Get a period by ID.

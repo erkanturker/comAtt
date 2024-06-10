@@ -1,5 +1,8 @@
 const express = require("express");
-const { ensureCorrectUserOrAdmin } = require("../middleware/auth");
+const {
+  ensureCorrectUserOrAdmin,
+  ensureIsAdmin,
+} = require("../middleware/auth");
 const Attendance = require("../models/attendance");
 const { BadRequestError } = require("../expressError");
 const {
@@ -75,11 +78,43 @@ router.post("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
 router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     const attendances = await Attendance.getAll();
-    return res.json( attendances );
+    return res.json(attendances);
   } catch (err) {
     return next(err);
   }
 });
+
+/**
+ * GET /attendancesByCurrentTerm
+ * 
+ * Retrieves all attendance records for the current term.
+ * Only accessible by users with the correct role (user or admin).
+ *   
+ * Response:
+ * - 200: OK, returns an array of attendance records where each record contains
+ *  Response:
+ * - 200: OK, returns an array of attendance records:
+ [{ "attendanceId": number, "studentId": number, "status": boolean, "periodId": number, 
+  "periodNumber": number, "subjectId": number, "groupId": number, "date": string,
+   "termId": number, "startDate": string, "endDate": string },
+ *     ...
+ *   ]
+ * - 401: Unauthorized, if the user does not have the required authorization.
+ */
+
+router.get(
+  "/attendancesByCurrentTerm",
+  ensureCorrectUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const attendances = await Attendance.getAttendancesByCurrentTerm();
+      console.log(attendances);
+      return res.json(attendances);
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
 
 /**
  * GET /attendances/:attendanceId

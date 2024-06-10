@@ -184,6 +184,30 @@ class Attendance {
 
     return result.rows;
   }
+  /**
+   * Retrieves all attendance records for the current term.
+   * 
+   * @returns {Promise<Array>} - A promise that resolves to an array of attendance records, where each record contains:
+   * */
+
+  static async getAttendancesByCurrentTerm() {
+    const result = await db.query(`
+    SELECT a.attendance_id AS "attendanceId", 
+      a.student_id AS "studentId",
+      a.status,p.period_id AS "periodId",
+      p.period_number AS "periodNumber",
+      p.subject_id AS "subjectId",
+      p.group_id AS "groupId",
+      p.date, p.term_id AS "termId",
+      t.start_date AS "startDate",
+      t.end_date AS "endDate"
+      FROM attendances AS a
+    JOIN periods AS p ON a.period_id = p.period_id
+    RIGHT JOIN terms AS t ON p.term_id = t.term_id
+    WHERE CURRENT_DATE BETWEEN t.start_date AND t.end_date`);
+
+    return result.rows;
+  }
 }
 
 module.exports = Attendance;

@@ -92,6 +92,30 @@ router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
 });
 
 /**
+ * GET /currentSundayPeriods
+ * 
+ * Retrieves all periods for the current Sunday.
+ * Only accessible by admin users.
+ * 
+ * Response:
+ * - 200: OK, returns an array of period records:
+ *   [
+ *     { "periodId": number, "periodNumber": number, "subjectId": number, "groupId": number, "termId": number, "date": string, "attendanceTaken": boolean },
+ *     ...
+ *   ]
+ * - 401: Unauthorized, if the user does not have the required authorization.
+ */
+
+router.get("/currentSundayPeriods", ensureIsAdmin, async (req, res, next) => {
+  try {
+    const periods = await Period.getCurrentPeriods();
+    res.json(periods);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
  * GET /periods/:periodId
  * Retrieves a period by its ID.
  * Path Parameters:
@@ -275,4 +299,5 @@ router.get(
     }
   }
 );
+
 module.exports = router;
