@@ -41,30 +41,35 @@ function Dashboard() {
           count={teachers.length}
           icon={faPersonChalkboard}
           color="text-primary"
+          link="/users"
         />
         <DashboardCard
           title="Students"
           count={students.length}
           icon={faGraduationCap}
           color="text-warning"
+          link="/students"
         />
         <DashboardCard
           title="Groups"
           count={groups.length}
           icon={faUsersLine}
           color="text-info"
+          link="/groups"
         />
         <DashboardCard
           title="Subjects"
           count={subjects.length}
           icon={faBookAtlas}
           color="text-success"
+          link="/subjects"
         />
         <DashboardCard
           title="Terms"
           count={terms.length}
           icon={faCloudSun}
           color="text-danger"
+          link="/terms"
         />
       </Row>
       <Row>
