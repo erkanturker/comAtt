@@ -1,36 +1,103 @@
 // src/components/Dashboard.jsx
+import {
+  faBookAtlas,
+  faChartBar,
+  faChartPie,
+  faCheck,
+  faCloudSun,
+  faGraduationCap,
+  faHourglass,
+  faPersonChalkboard,
+  faUsersLine,
+} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import useGroups from "../hooks/useGroups";
+import usePeriods from "../hooks/usePeriods";
+import useStudents from "../hooks/useStudents";
+import useSubjects from "../hooks/useSubject";
+import useTerms from "../hooks/useTerms";
+import useUsers from "../hooks/useUsers";
+import DashboardCard from "./DashboardCard";
+import useAttendance from "../hooks/useAttendance";
 
 function Dashboard() {
+  const { data: users } = useUsers();
+  const teachers = users.map((user) => user.role === "teacher");
+  const { data: groups } = useGroups();
+  const { data: students } = useStudents();
+  const { data: subjects } = useSubjects();
+  const { data: terms } = useTerms();
+  const { takenAttendance, pendingAttendance } = usePeriods();
+  const { termRate, currentRate } = useAttendance();
+
   return (
     <div>
       <h1>Dashboard</h1>
       <Row>
-        <Col md={4}>
-          <Card className="mb-4">
-            <Card.Body>
-              <Card.Title>Users</Card.Title>
-              <Card.Text>1,200</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card className="mb-4">
-            <Card.Body>
-              <Card.Title>Revenue</Card.Title>
-              <Card.Text>$34,000</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card className="mb-4">
-            <Card.Body>
-              <Card.Title>Orders</Card.Title>
-              <Card.Text>2,500</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
+        <h6 className="mt-4 mb-2">Quick Stats</h6>
+        <DashboardCard
+          title="Teachers"
+          count={teachers.length}
+          icon={faPersonChalkboard}
+          color="text-primary"
+        />
+        <DashboardCard
+          title="Students"
+          count={students.length}
+          icon={faGraduationCap}
+          color="text-warning"
+        />
+        <DashboardCard
+          title="Groups"
+          count={groups.length}
+          icon={faUsersLine}
+          color="text-info"
+        />
+        <DashboardCard
+          title="Subjects"
+          count={subjects.length}
+          icon={faBookAtlas}
+          color="text-success"
+        />
+        <DashboardCard
+          title="Terms"
+          count={terms.length}
+          icon={faCloudSun}
+          color="text-danger"
+        />
+      </Row>
+      <Row>
+        <h6 className="mt-4 mb-2">Current Week Attendace</h6>
+        <DashboardCard
+          title="Done"
+          count={takenAttendance?.length}
+          icon={faCheck}
+          color="text-success"
+        />
+        <DashboardCard
+          title="Remaining"
+          count={pendingAttendance?.length}
+          icon={faHourglass}
+          color="text-danger"
+        />
+      </Row>
+      <Row>
+        <h6 className="mt-4 mb-2">Attendace Rates</h6>
+        <DashboardCard
+          title="By Current"
+          count={currentRate}
+          icon={faChartPie}
+          color="text-info"
+          type="percent"
+        />
+        <DashboardCard
+          title="By Terms"
+          count={termRate}
+          icon={faChartBar}
+          color="text-warning"
+          type="percent"
+        />
       </Row>
     </div>
   );

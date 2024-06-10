@@ -10,6 +10,8 @@ const useAttendance = () => {
   const [students, setStudents] = useState([]);
   const [attendances, setAttendances] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [termAttendances, setTermAttendances] = useState([]);
+
   const [alert, setAlert] = useState({
     visible: false,
     messages: "",
@@ -30,7 +32,11 @@ const useAttendance = () => {
         const resp = await ComAttApi.getAll(
           `periods/${currentUser.username}/upcoming-schedule`
         );
+        const respTermAtt = await ComAttApi.getAll(
+          "attendances/attendancesByCurrentTerm"
+        );
         setTeacherSchedule(resp);
+        setTermAttendances(respTermAtt);
       } catch (error) {
         setAlert({
           visible: true,
@@ -162,6 +168,53 @@ const useAttendance = () => {
     });
   };
 
+  const presents = termAttendances?.filter((att) => att.status === true).length;
+
+  const termRate = (
+    termAttendances?.length > 0 ? (presents / termAttendances.length) * 100 : 0
+  ).toFixed(2);
+
+  const getCurrentSundaySchoolAttendances = (termAttendances) => {
+    const today = moment();
+
+    // Parse and sort attendances by date
+    const sortedAttendanceByDate = termAttendances
+      .map((att) => ({
+        ...att,
+        date: moment(att.date),
+      }))
+      .filter((att) => att.date.isAfter(today, "day"))
+      .sort((a, b) => a.date - b.date);
+
+    // Find the next Sunday from the sorted list
+    const currentSundayAttendace = sortedAttendanceByDate.find(
+      (att) => att.date.day() === 0
+    );
+
+    if (!currentSundayAttendace) {
+      return []; // Return an empty array if no upcoming Sunday is found
+    }
+
+    // Filter attendances for the found Sunday
+    const currentAtt = termAttendances.filter((att) =>
+      moment(att.date).isSame(currentSundayAttendace.date, "day")
+    );
+
+    return currentAtt;
+  };
+
+  const currentAttendance = getCurrentSundaySchoolAttendances(termAttendances);
+
+  const currentPresents = currentAttendance.filter(
+    (att) => att.status === true
+  );
+
+  const currentRate = (
+    currentAttendance?.length > 0
+      ? (currentPresents.length / currentAttendance.length) * 100
+      : 0
+  ).toFixed(2);
+
   return {
     teacherSchedule,
     selectedPeriodId,
@@ -173,6 +226,8 @@ const useAttendance = () => {
     loading,
     alert,
     closeAlert,
+    termRate,
+    currentRate,
   };
 };
 
