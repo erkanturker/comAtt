@@ -1,12 +1,12 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import useAttendance from "../hooks/useAttendance";
+import useAttendance from "../../hooks/useAttendanceTeacher";
 import AttendancePeriodSelection from "./AttendancePeriodSelection";
-import AttendanceTable from "./AttendanceTable";
-import CustomAlert from "./CommonJsx/CustomAlert";
-import LoadingSpinner from "./CommonJsx/LoadingSpinner";
+import AttendanceTable from "../CommonJsx/AttendanceTable";
+import CustomAlert from "../CommonJsx/CustomAlert";
+import LoadingSpinner from "../CommonJsx/LoadingSpinner";
 
-const AttendanceManagement = () => {
+const AttendanceTeacher = () => {
   const {
     teacherSchedule,
     selectedPeriodId,
@@ -35,7 +35,7 @@ const AttendanceManagement = () => {
       backgroundColor: state.isSelected ? "#dff0d8" : provided.backgroundColor,
     }),
   };
-  
+
   return (
     <div>
       <h1 className="mb-4">Attendances</h1>
@@ -75,4 +75,4 @@ const AttendanceManagement = () => {
   );
 };
 
-export default AttendanceManagement;
+export default AttendanceTeacher;

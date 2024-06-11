@@ -1,9 +1,27 @@
 import React from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 
-const GenericTable = ({ title, columns, data, onDelete }) => {
+const GenericTable = ({
+  title,
+  columns,
+  data,
+  onDelete,
+  showDeleteButton = true,
+  onRowClick,
+  theme = "default",
+}) => {
+  const getRowStyle = () => {
+    switch (theme) {
+      case "remaining":
+        return { color: "red" };
+      case "taken":
+        return { color: "green" };
+      default:
+        return {};
+    }
+  };
   return (
-    <Row style={{ background: "white" }} className="pt-4 m-1 mt-5">
+    <Row style={{ background: "white" }} className="pt-4 m-1 mt-4">
       <Col md={12}>
         <h6>{title}</h6>
         <Table striped bordered hover className="mt-4">
@@ -12,24 +30,38 @@ const GenericTable = ({ title, columns, data, onDelete }) => {
               {columns.map((column, index) => (
                 <th key={index}>{column.label}</th>
               ))}
-              <th>Action</th>
+              {showDeleteButton && <th>Action</th>}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-danger">
             {data.map((item, rowIndex) => (
-              <tr key={rowIndex}>
+              <tr
+                className="text-danger"
+                key={rowIndex}
+                onClick={() => onRowClick && onRowClick(item)}
+                style={{
+                  cursor: onRowClick ? "pointer" : "default",
+                }}
+              >
                 {columns.map((column, colIndex) => (
-                  <td key={colIndex}>{item[column.accessor]}</td>
+                  <td style={getRowStyle()} key={colIndex}>
+                    {item[column.accessor]}
+                  </td>
                 ))}
-                <td>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => onDelete(item)}
-                  >
-                    Delete
-                  </Button>
-                </td>
+                {showDeleteButton && (
+                  <td>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete(item);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

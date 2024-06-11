@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Row } from "react-bootstrap";
+import useAttendanceRate from "../hooks/useAttendanceRate";
 import useGroups from "../hooks/useGroups";
 import usePeriods from "../hooks/usePeriods";
 import useStudents from "../hooks/useStudents";
@@ -19,7 +20,6 @@ import useSubjects from "../hooks/useSubject";
 import useTerms from "../hooks/useTerms";
 import useUsers from "../hooks/useUsers";
 import DashboardCard from "./DashboardCard";
-import useAttendance from "../hooks/useAttendance";
 
 function Dashboard() {
   const { data: users } = useUsers();
@@ -29,7 +29,7 @@ function Dashboard() {
   const { data: subjects } = useSubjects();
   const { data: terms } = useTerms();
   const { takenAttendance, pendingAttendance } = usePeriods();
-  const { termRate, currentRate } = useAttendance();
+  const { termRate, currentRate } = useAttendanceRate();
 
   return (
     <div>
@@ -79,12 +79,14 @@ function Dashboard() {
           count={takenAttendance?.length}
           icon={faCheck}
           color="text-success"
+          link="submittedAttendances"
         />
         <DashboardCard
           title="Remaining"
           count={pendingAttendance?.length}
           icon={faHourglass}
           color="text-danger"
+          link="remainingAttendances"
         />
       </Row>
       <Row>
