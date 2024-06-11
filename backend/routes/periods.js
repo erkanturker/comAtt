@@ -59,6 +59,61 @@ router.post("/", ensureIsAdmin, async (req, res, next) => {
     return next(err);
   }
 });
+
+/**
+ * POST /batch
+ * Creates multiple periods in a batch. Only accessible to admins.
+
+ * 
+ * Example Request Body:
+ * [{"periodId": number, periodNumber": number, "subjectId": number,
+ *    "groupId": number,"termId": number,"date": string},
+ *     ...
+ *   ]
+ *
+ * Response:
+ * - 201: Created, returns an array of created period objects:
+ *   [{"periodId": number, periodNumber": number, "subjectId": number,
+ *    "groupId": number,"termId": number,"date": string},
+ *     ...
+ *   ]
+ * 
+ * - 400: Bad Request, returns an array of error messages if validation fails.
+
+ */
+
+router.post("/batch", ensureIsAdmin, async (req, res, next) => {
+  try {
+    const periods = Array.isArray(req.body) ? req.body : [req.body];
+
+    const errors = periods.flatMap((period) => {
+      const { error } = createPeriodSchema.validate(period, {
+        abortEarly: false,
+      });
+      return error ? error.details.map((e) => e.message) : [];
+    });
+
+    if (errors.length > 0) {
+      throw new BadRequestError(errors);
+    }
+
+    await Promise.all(
+      periods.map(async (period) => {
+        await Group.getGroup(period.groupId);
+        await Subject.get(period.subjectId);
+      })
+    );
+
+    const newPeriods = await Promise.all(
+      periods.map((period) => Period.create(period))
+    );
+
+    return res.status(201).json(newPeriods);
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /**
  * GET /periods
  * Retrieves a list of all periods.
@@ -93,10 +148,10 @@ router.get("/", ensureCorrectUserOrAdmin, async (req, res, next) => {
 
 /**
  * GET /currentSundayPeriods
- * 
+ *
  * Retrieves all periods for the current Sunday.
  * Only accessible by admin users.
- * 
+ *
  * Response:
  * - 200: OK, returns an array of period records:
  *   [
