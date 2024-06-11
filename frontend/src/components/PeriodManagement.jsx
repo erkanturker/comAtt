@@ -6,12 +6,21 @@ import useSubject from "../hooks/useSubject";
 import useTerms from "../hooks/useTerms";
 import GenericForm from "./CommonJsx/GenericForm";
 import PeriodTable from "./PeriodTable";
+import CustomAlert from "./CommonJsx/CustomAlert";
+import LoadingSpinner from "./CommonJsx/LoadingSpinner";
 
 const PeriodManagement = () => {
   const { data: groups } = useGroups();
   const { data: terms } = useTerms();
   const { data: subjects } = useSubject();
-  const { data: periods, addItem: addPeriods } = usePeriods();
+  const {
+    data: periods,
+    addItem: addPeriods,
+    alert,
+    closeAlert,
+    handleCopy,
+    loading,
+  } = usePeriods();
   const [selectedTerm, setSelectedTerm] = useState("");
 
   const periodFields = [
@@ -77,9 +86,34 @@ const PeriodManagement = () => {
     ? periods.filter((period) => period.termId === parseInt(selectedTerm))
     : periods;
 
+  const copyScheduleField = [
+    {
+      name: "sourceDate",
+      label: "Source Date",
+      type: "date",
+      required: true,
+    },
+    {
+      name: "targetDate",
+      label: "Target Date",
+      type: "date",
+      required: true,
+    },
+  ];
+
   return (
     <Container>
       <h2>Create Schedule</h2>
+      {loading && <LoadingSpinner />}
+      {alert.visible && (
+        <CustomAlert
+          type={alert.type}
+          title={alert.title}
+          messages={alert.messages}
+          visible={alert.visible}
+          onClose={closeAlert}
+        />
+      )}
       <GenericForm
         title="Create Schedule"
         fields={periodFields}
@@ -90,6 +124,13 @@ const PeriodManagement = () => {
           subjectId: "",
           periodNumber: "",
         }}
+      />
+      <GenericForm
+        title="Copy Schedule"
+        fields={copyScheduleField}
+        onSubmit={handleCopy}
+        initialData={{}}
+        submitButtonText="Copy"
       />
       <h5 className="mt-4">Filter by Term</h5>
       <Form.Group controlId="filterByTerm">

@@ -99,11 +99,14 @@ const useDataManagement = ({ idKey = "id", endpoint }) => {
 
   return {
     data,
+    setData,
     addItem,
     removeItem,
+    setLoading,
     loading,
     alert,
     closeAlert,
+    setAlert,
   };
 };
 
