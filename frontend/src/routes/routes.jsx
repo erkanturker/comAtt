@@ -127,7 +127,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "attendances",
+        path: "/attendances",
         element: (
           <PrivateRoutes roles={["teacher"]}>
             <AttendanceTeacher />

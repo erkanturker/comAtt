@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import useAttendance from "../../hooks/useAttendanceTeacher";
+import useAttendanceTeacher from "../../hooks/useAttendanceTeacher";
 import AttendancePeriodSelection from "./AttendancePeriodSelection";
 import AttendanceTable from "../CommonJsx/AttendanceTable";
 import CustomAlert from "../CommonJsx/CustomAlert";
@@ -18,7 +18,7 @@ const AttendanceTeacher = () => {
     loading,
     alert,
     closeAlert,
-  } = useAttendance();
+  } = useAttendanceTeacher();
 
   const options = teacherSchedule.map((schedule) => ({
     value: schedule.periodId,

@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import ComAttApi from "../api";
 import moment from "moment/moment";
 
-const useAttendance = () => {
+const useAttendanceTeacher = () => {
   const { currentUser } = useAuth();
   const [teacherSchedule, setTeacherSchedule] = useState([]);
   const [selectedPeriodId, setSelectedPeriodId] = useState("");
@@ -163,6 +163,14 @@ const useAttendance = () => {
     });
   };
 
+  const remainingAttendance = teacherSchedule.filter(
+    (period) => !period.attendanceTaken
+  );
+
+  const submittedAttendances = teacherSchedule.filter(
+    (period) => period.attendanceTaken
+  );
+
   return {
     teacherSchedule,
     selectedPeriodId,
@@ -174,7 +182,9 @@ const useAttendance = () => {
     loading,
     alert,
     closeAlert,
+    remainingAttendance,
+    submittedAttendances,
   };
 };
 
-export default useAttendance;
+export default useAttendanceTeacher;
