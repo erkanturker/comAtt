@@ -122,17 +122,19 @@ class Period {
       LIMIT 1
     )
     SELECT 
-      period_id AS "periodId", 
-      period_number AS "periodNumber", 
-      subject_id AS "subjectId", 
-      group_id AS "groupId", 
+      p.period_id AS "periodId", 
+      p.period_number AS "periodNumber", 
+      p.subject_id AS "subjectId", 
+      s.subject_name AS "subjectName",
+      p.group_id AS "groupId", 
+      g.group_name AS "groupName",
       term_id AS "termId", 
-      date,  
+      p.date,  
       attendance_taken AS "attendanceTaken"
-    FROM periods 
-    WHERE periods.date >= CURRENT_DATE 
-      AND periods.date <= (SELECT date FROM upcoming_school_day)
-`);
+    FROM periods AS p
+    JOIN subjects AS s ON s.subject_id = p.subject_id
+    JOIN groups AS g ON p.group_id = g.group_id
+    WHERE p.date BETWEEN CURRENT_DATE AND (SELECT date FROM upcoming_school_day);`);
     return result.rows;
   }
 

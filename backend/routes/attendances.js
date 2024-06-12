@@ -108,7 +108,6 @@ router.get(
   async (req, res, next) => {
     try {
       const attendances = await Attendance.getAttendancesByCurrentTerm();
-      console.log(attendances);
       return res.json(attendances);
     } catch (err) {
       return next(err);
