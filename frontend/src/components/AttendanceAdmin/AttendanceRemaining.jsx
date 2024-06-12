@@ -21,7 +21,7 @@ const AttendanceRemaining = () => {
     <div>
       <h1>Remaining Attendances</h1>
       {loading && <LoadingSpinner />}
-      <GoBack link="/dashboard" />
+      <GoBack link="/dashboard/admin" />
       <GenericTable
         title="Select Attendances"
         data={pendingAttendance

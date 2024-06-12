@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           const { username } = jwtDecode(token);
-          console.log(username);
           ComAttApi.token = token;
           const currentUser = await ComAttApi.get(`users/${username}`);
           setCurrentUser(currentUser);
@@ -50,7 +49,7 @@ export const AuthProvider = ({ children }) => {
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
-    <AuthContext.Provider value={{ login, currentUser, logout }}>
+    <AuthContext.Provider value={{ login, currentUser, logout, infoLoaded }}>
       {children}
     </AuthContext.Provider>
   );

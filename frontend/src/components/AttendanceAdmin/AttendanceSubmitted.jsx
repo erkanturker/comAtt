@@ -21,7 +21,7 @@ const AttendanceSubmitted = () => {
     <div>
       <h1>Submitted Attendances</h1>
       {loading && <LoadingSpinner />}
-      <GoBack link="/dashboard" />
+      <GoBack link="/dashboard/admin" />
       <GenericTable
         title="Select Attendances"
         data={takenAttendance

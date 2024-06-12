@@ -30,7 +30,7 @@ function Sidebar({ isOpen }) {
             {" "}
             <Nav.Link
               as={NavLink}
-              to="/dashboard"
+              to="/dashboard/admin"
               className="d-flex align-items-center my-2 border-bottom"
             >
               <FontAwesomeIcon icon={faTachometerAlt} className="px-2" />
@@ -88,6 +88,14 @@ function Sidebar({ isOpen }) {
         )}
         {currentUser.role === "teacher" && (
           <>
+            <Nav.Link
+              as={NavLink}
+              to="/dashboard/teacher"
+              className="d-flex align-items-center my-2 border-bottom"
+            >
+              <FontAwesomeIcon icon={faTachometerAlt} className="px-2" />
+              Dashboard
+            </Nav.Link>
             <Nav.Link
               as={NavLink}
               to="/attendances"

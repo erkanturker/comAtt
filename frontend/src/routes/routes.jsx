@@ -2,24 +2,25 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Dashboard from "../components/Dashboard";
+import AttendanceAdmin from "../components/AttendanceAdmin/AttendanceAdmin";
+import AttendanceRemaining from "../components/AttendanceAdmin/AttendanceRemaining";
+import AttendanceSubmitted from "../components/AttendanceAdmin/AttendanceSubmitted";
+import AttendanceTeacher from "../components/AttendanceTeacher/AttendanceTeacher";
+import DashboardAdmin from "../components/DashboardAdmin";
 import GroupManagement from "../components/GroupManagement";
+import PeriodManagement from "../components/PeriodManagement";
+import StudentManagement from "../components/StudentManagement";
+import SubjectManagement from "../components/SubjectManagement";
+import TermManagement from "../components/TermManagement";
 import UserManagment from "../components/UserManagment";
 import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
-import StudentManagement from "../components/StudentManagement";
-import TermManagement from "../components/TermManagement";
-import SubjectManagement from "../components/SubjectManagement";
-import PeriodManagement from "../components/PeriodManagement";
-import AttendanceTeacher from "../components/AttendanceTeacher/AttendanceTeacher";
-import AttendanceRemaining from "../components/AttendanceAdmin/AttendanceRemaining";
-import AttendanceAdmin from "../components/AttendanceAdmin/AttendanceAdmin";
-import AttendanceSubmitted from "../components/AttendanceAdmin/AttendanceSubmitted";
+import DashboardTeacher from "../components/DashboardTeacher";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <LoginPage />, // Route for the login page
+    element: <LoginPage />,
   },
   {
     path: "/",
@@ -30,10 +31,18 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "dashboard",
+        path: "dashboard/admin",
         element: (
-          <PrivateRoutes roles={["admin", "teacher"]}>
-            <Dashboard />
+          <PrivateRoutes roles={["admin"]}>
+            <DashboardAdmin />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "dashboard/teacher",
+        element: (
+          <PrivateRoutes roles={["teacher"]}>
+            <DashboardTeacher />
           </PrivateRoutes>
         ),
       },
@@ -86,7 +95,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/remainingAttendances",
+        path: "dashboard/admin/remainingAttendances",
         element: (
           <PrivateRoutes roles={["admin"]}>
             <AttendanceRemaining />
@@ -94,7 +103,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/remainingAttendances/:periodId",
+        path: "dashboard/admin/remainingAttendances/:periodId",
         element: (
           <PrivateRoutes roles={["admin"]}>
             <AttendanceAdmin />
@@ -102,7 +111,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/submittedAttendances",
+        path: "dashboard/admin/submittedAttendances",
         element: (
           <PrivateRoutes roles={["admin"]}>
             <AttendanceSubmitted />
@@ -110,7 +119,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/submittedAttendances/:periodId",
+        path: "dashboard/admin/submittedAttendances/:periodId",
         element: (
           <PrivateRoutes roles={["admin"]}>
             <AttendanceAdmin />

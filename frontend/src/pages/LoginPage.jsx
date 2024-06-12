@@ -22,11 +22,11 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await login(formData);
-    if (result.success) {
+    const resp = await login(formData);
+    if (resp.result === "success") {
       navigate("/");
     } else {
-      setFormErrors((previous) => [...previous, result.error]);
+      setFormErrors((previous) => [...previous, resp.error]);
       setAlertVisible(true);
     }
   };

@@ -7,8 +7,8 @@ const CustomAlert = ({ type, title, messages, visible, onClose }) => {
       {visible && (
         <Alert variant={type} onClose={onClose} dismissible>
           <Alert.Heading>{title}</Alert.Heading>
-          {messages.map((message) => (
-            <p key={message}>{message}</p>
+          {messages.map((message, index) => (
+            <p key={index}>{message}</p>
           ))}
         </Alert>
       )}
