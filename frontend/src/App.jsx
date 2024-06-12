@@ -1,32 +1,19 @@
 // src/App.jsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import "./App.css"; // Import your CSS file
+import LoadingSpinner from "./components/CommonJsx/LoadingSpinner";
 import Sidebar from "./components/Sidebar";
 import { useAuth } from "./contexts/AuthContext";
-import LoadingSpinner from "./components/CommonJsx/LoadingSpinner";
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
-  const { currentUser, infoLoaded } = useAuth();
-  const navigate = useNavigate();
+  const { infoLoaded } = useAuth();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    if (infoLoaded && currentUser) {
-      if (currentUser.role === "admin") {
-        navigate("/dashboard/admin");
-      } else if (currentUser.role === "teacher") {
-        navigate("/dashboard/teacher");
-      } else {
-        navigate("/unauthorized");
-      }
-    }
-  }, [currentUser]);
 
   if (!infoLoaded) return <LoadingSpinner />;
 

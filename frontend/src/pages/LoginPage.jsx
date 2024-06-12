@@ -32,7 +32,11 @@ const LoginPage = () => {
   };
 
   if (currentUser) {
-    return <Navigate to="/" />;
+    if (currentUser.role === "admin") {
+      return <Navigate to="/dashboard/admin" />;
+    } else if (currentUser.role === "teacher") {
+      return <Navigate to="/dashboard/teacher" />;
+    }
   }
 
   return (

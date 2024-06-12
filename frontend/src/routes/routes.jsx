@@ -16,11 +16,21 @@ import UserManagment from "../components/UserManagment";
 import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
 import DashboardTeacher from "../components/DashboardTeacher";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/unauthorized",
+    element: (
+      <ErrorPage
+        errorCode={403}
+        errorMessage="You do not have permission to view this page."
+      />
+    ),
   },
   {
     path: "/",
@@ -135,6 +145,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage errorCode={404} errorMessage="Page not Found" />,
   },
 ]);
 
