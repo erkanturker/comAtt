@@ -102,7 +102,7 @@ const PeriodManagement = () => {
   ];
 
   return (
-    <Container>
+    <Container fluid>
       <h2>Create Schedule</h2>
       {loading && <LoadingSpinner />}
       {alert.visible && (
