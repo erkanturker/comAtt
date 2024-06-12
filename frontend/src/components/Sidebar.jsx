@@ -12,6 +12,7 @@ import {
   faCloudSun,
   faChalkboard,
   faCalendarDays,
+  faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -83,6 +84,18 @@ function Sidebar({ isOpen }) {
             >
               <FontAwesomeIcon icon={faCalendarDays} className="px-2" />
               Periods
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/report"
+              className="d-flex align-items-center my-1 border-bottom"
+            >
+              <FontAwesomeIcon
+                icon={faClipboardList}
+                size="lg"
+                className="px-2"
+              />
+              Report
             </Nav.Link>
           </>
         )}

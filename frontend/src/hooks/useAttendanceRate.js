@@ -60,7 +60,7 @@ const useAttendanceRate = () => {
       : 0
   ).toFixed(2);
 
-  return { termRate, currentRate };
+  return { termAttendances, termRate, currentRate };
 };
 
 export default useAttendanceRate;

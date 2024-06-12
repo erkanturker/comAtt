@@ -186,7 +186,7 @@ class Attendance {
   }
   /**
    * Retrieves all attendance records for the current term.
-   * 
+   *
    * @returns {Promise<Array>} - A promise that resolves to an array of attendance records, where each record contains:
    * */
 
@@ -199,6 +199,7 @@ class Attendance {
       p.subject_id AS "subjectId",
       p.group_id AS "groupId",
       p.date, p.term_id AS "termId",
+      t.term_name AS "termName",
       t.start_date AS "startDate",
       t.end_date AS "endDate"
       FROM attendances AS a

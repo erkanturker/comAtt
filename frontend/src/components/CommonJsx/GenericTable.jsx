@@ -20,10 +20,18 @@ const GenericTable = ({
         return {};
     }
   };
+
+  const renderTitle = () => {
+    if (Array.isArray(title)) {
+      return title.map((line, index) => <div key={index}>{line}</div>);
+    }
+    return <div>{title}</div>;
+  };
+
   return (
     <Row style={{ background: "white" }} className="pt-4 m-1 mt-4">
       <Col md={12}>
-        <h6>{title}</h6>
+        <h6>{renderTitle()}</h6>
         <Table striped bordered hover className="mt-4">
           <thead>
             <tr>

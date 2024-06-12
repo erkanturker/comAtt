@@ -17,6 +17,7 @@ import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
 import DashboardTeacher from "../components/DashboardTeacher";
 import ErrorPage from "../pages/ErrorPage";
+import ReportAdmin from "../components/ReportAdmin";
 
 const router = createBrowserRouter([
   {
@@ -133,6 +134,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes roles={["admin"]}>
             <AttendanceAdmin />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/report",
+        element: (
+          <PrivateRoutes roles={["admin"]}>
+            <ReportAdmin />
           </PrivateRoutes>
         ),
       },
