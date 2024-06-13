@@ -89,9 +89,10 @@ const ReportAdmin = () => {
           <Row style={{ background: "white" }} className="pt-3 m-1">
             <h6 className="mb-4">Get Student Atttendace Report By Term</h6>
             <Col md={3}>
-              <Form.Group controlId="schedule" className="mb-3 px-4">
-                <Form.Label>Select a Group</Form.Label>
+              <Form.Group controlId="groupSelect" className="mb-3 px-4">
+                <Form.Label htmlFor="groupSelect">Select a Group</Form.Label>
                 <ReactSelect
+                  inputId="groupSelect"
                   options={groupOptions}
                   onChange={({ value, label }) =>
                     handleGroupSelect(value, label)
@@ -100,9 +101,12 @@ const ReportAdmin = () => {
               </Form.Group>
             </Col>
             <Col md={4}>
-              <Form.Group controlId="schedule" className="mb-3 px-4">
-                <Form.Label>Select a Student</Form.Label>
+              <Form.Group controlId="studentSelect" className="mb-3 px-4">
+                <Form.Label htmlFor="studentSelect">
+                  Select a Student
+                </Form.Label>
                 <ReactSelect
+                  inputId="studentSelect"
                   value={
                     optionsStudent.find(
                       (student) => student.label === formInfo.studentFullName

@@ -116,7 +116,7 @@ const PeriodManagement = () => {
 
   return (
     <Container fluid>
-      <h2>Create Schedule</h2>
+      <h2>Periods</h2>
       {loading && <LoadingSpinner />}
       {alert.visible && (
         <CustomAlert
