@@ -12,7 +12,7 @@ import LoadingSpinner from "../components/CommonJsx/LoadingSpinner";
  * and stores the authentication token in local storage.
  */
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [infoLoaded, setInfoLoaded] = useState(false);

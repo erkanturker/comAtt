@@ -1,3 +1,4 @@
+// src/routes/routes.jsx
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
@@ -17,15 +18,6 @@ import PrivateRoutes from "./PrivateRoutes";
 import DashboardTeacher from "../components/DashboardTeacher";
 import ErrorPage from "../pages/ErrorPage";
 import ReportAdmin from "../components/ReportAdmin";
-
-/**
-Login Route: The /login path is linked to the LoginPage component.
-Unauthorized Route: The /unauthorized path displays an error page with a 403 status.
-
-Root Path:
-Uses PrivateRoutes to ensure only authenticated users with the roles admin, teacher, or user can access.
-Wraps the App component which acts as a layout for nested routes.
- */
 
 const router = createBrowserRouter([
   {
@@ -146,7 +138,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/report",
+        path: "report",
         element: (
           <PrivateRoutes roles={["admin"]}>
             <ReportAdmin />
@@ -154,7 +146,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/attendances",
+        path: "attendances",
         element: (
           <PrivateRoutes roles={["teacher"]}>
             <AttendanceTeacher />
