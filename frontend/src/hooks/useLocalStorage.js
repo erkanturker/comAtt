@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+/*
+/**
+ * useLocalStorage Hook
+ * This custom hook provides an interface for interacting with the local storage in the browser.
+ * It allows you to store, retrieve, and update a value in local storage.
+ *
+*/
 const useLocalStorage = (key, firstVal = null) => {
   const initialValue = window.localStorage.getItem(key) || firstVal;
   const [storedValue, setStoredValue] = useState(initialValue);
 
   useEffect(() => {
-    console.log(`hooks useLocalStorage ${storedValue}`);
-
     if (storedValue === null) {
       localStorage.removeItem(key);
     } else {

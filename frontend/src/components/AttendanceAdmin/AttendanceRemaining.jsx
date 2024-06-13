@@ -5,6 +5,15 @@ import usePeriods from "../../hooks/usePeriods";
 import GenericTable from "../CommonJsx/GenericTable";
 import GoBack from "../CommonJsx/GoBack";
 import LoadingSpinner from "../CommonJsx/LoadingSpinner";
+
+/**
+ * AttendanceRemaining Component
+ *
+ * This component displays the remaining attendances in a table format.
+ * It fetches the pending attendances using the usePeriods hook and displays them using the GenericTable component.
+ * The user can click on a row to navigate to the detailed view of the selected period.
+ */
+
 const AttendanceRemaining = () => {
   const { pendingAttendance = [], loading } = usePeriods();
 

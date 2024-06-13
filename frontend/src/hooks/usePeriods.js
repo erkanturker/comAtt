@@ -3,6 +3,12 @@ import ComAttApi from "../api";
 import useDataManagement from "./useDataManagement";
 import moment from "moment";
 
+/**
+ * This custom hook provides data management and specific functionality for handling period-related data.
+ * The hook uses useEffect to fetch current Sunday school periods on mount and sets the loading state accordingly.
+ * The handleCopy function allows copying periods from a source date to a target date and manages the state and alerts.
+ */
+
 const usePeriods = () => {
   const {
     data,

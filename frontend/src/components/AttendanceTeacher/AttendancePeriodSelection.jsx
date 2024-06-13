@@ -2,6 +2,13 @@ import React from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import ReactSelect from "react-select";
 
+/**
+ * AttendancePeriodSelection Component
+ *
+ * This component provides an interface for selecting a period from a list of options.
+ * It uses the ReactSelect component for the dropdown selection.
+ */
+
 const AttendancePeriodSelection = ({
   options,
   customStyles,

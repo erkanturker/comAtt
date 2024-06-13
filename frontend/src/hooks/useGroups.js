@@ -1,5 +1,8 @@
-// src/hooks/useGroups.js
 import useDataManagement from "./useDataManagement";
+
+/*
+ *This custom hook simpliefes the Crud opearation of groups data
+ */
 
 const useGroups = () => {
   return useDataManagement({

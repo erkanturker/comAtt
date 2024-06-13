@@ -1,9 +1,22 @@
-import React, { useState } from "react";
-import GenericTable from "./CommonJsx/GenericTable";
-import GenericForm from "./CommonJsx/GenericForm";
+import React from "react";
 import { Container, Spinner } from "react-bootstrap";
 import useGroups from "../hooks/useGroups";
 import CustomAlert from "./CommonJsx/CustomAlert";
+import GenericForm from "./CommonJsx/GenericForm";
+import GenericTable from "./CommonJsx/GenericTable";
+
+/**
+ * GroupManagement Component
+ *
+ * This component provides an interface for managing groups.
+ * It allows the creation and deletion of groups, and displays
+ * a list of all groups in a table format.
+ *
+ * State:
+ * - initialData: Initial state for the form data.
+ * - groupFields: Defines the fields used in the GenericForm for group creation.
+ * - groupColumns: Defines the columns used in the GenericTable for displaying group data.
+ */
 
 const GroupManagement = () => {
   const {

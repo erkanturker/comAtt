@@ -1,6 +1,13 @@
 import React from "react";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
 
+/**
+ * AttendanceTable Component
+ *
+ * This component renders a table of students for a selected period, allowing attendance to be marked.
+
+ */
+
 const AttendanceTable = ({
   handleSubmit,
   students,

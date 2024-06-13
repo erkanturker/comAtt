@@ -6,6 +6,14 @@ import LoadingSpinner from "../CommonJsx/LoadingSpinner";
 import moment from "moment";
 import GoBack from "../CommonJsx/GoBack";
 
+/**
+ * AttendanceSubmitted Component
+ *
+ * This component displays the submitted attendances in a table format.
+ * It fetches the taken attendances using the usePeriods hook and displays them using the GenericTable component.
+ * The user can click on a row to navigate to the detailed view of the selected period.
+ */
+
 const AttendanceSubmitted = () => {
   const { takenAttendance = [], loading } = usePeriods();
   const navigate = useNavigate();

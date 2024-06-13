@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-
 import moment from "moment";
 import ReactSelect from "react-select";
 import useAttendanceRate from "../hooks/useAttendanceRate";
@@ -8,6 +7,25 @@ import useGroups from "../hooks/useGroups";
 import useStudents from "../hooks/useStudents";
 import GenericTable from "./CommonJsx/GenericTable";
 import transformData from "../helper/transformData";
+
+/**
+ * ReportAdmin Component
+ *
+ * This component generates attendance reports for students based on selected group and student.
+ * It uses hooks to fetch data and state management to handle form inputs and report generation.
+ *
+ * State:
+ * - groups: List of groups to populate the group selection dropdown.
+ * - students: List of students to populate the student selection dropdown.
+ * - termAttendances: List of attendance records for the current term.
+ * - filteredstudents: List of students filtered by the selected group.
+ * - studentAttendancesReport: The attendance report data for the selected student.
+ * - formInfo: Holds information about the selected group, student, and term for the report.
+ *
+ * Functions:
+ * - handleGroupSelect: Filters students based on the selected group and resets the form.
+ * - handleStudentSelect: Filters attendance records based on the selected student and formats dates.
+ */
 
 const ReportAdmin = () => {
   const { data: groups } = useGroups();

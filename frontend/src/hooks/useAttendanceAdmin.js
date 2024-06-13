@@ -3,6 +3,14 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 import ComAttApi from "../api";
 
+/**
+ * useAttendanceAdmin Hook
+ *
+ * This custom hook is designed to manage attendance data for the admin. It handles fetching
+ * students, attendance records, and period information for a given period. It also provides
+ * functions for changing attendance statuses and submitting updated attendance data.
+ */
+
 const useAttendanceAdmin = () => {
   const { periodId } = useParams();
   const [students, setStudents] = useState([]);

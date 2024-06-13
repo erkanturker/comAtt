@@ -21,6 +21,11 @@ import useTerms from "../hooks/useTerms";
 import useUsers from "../hooks/useUsers";
 import DashboardCard from "./DashboardCard";
 
+/**
+ * DashboardAdmin Component
+ * This component renders the admin dashboard, displaying various statistics and links for quick navigation.
+ */
+
 function DashboardAdmin() {
   const { data: users } = useUsers();
   const teachers = users.map((user) => user.role === "teacher");

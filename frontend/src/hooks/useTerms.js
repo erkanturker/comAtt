@@ -1,5 +1,8 @@
-import ComAttApi from "../api";
 import useDataManagement from "./useDataManagement";
+
+/*
+*This custom hook simpliefes the Crud opearation of terms data
+*/
 
 const useTerms = () => {
   return useDataManagement({

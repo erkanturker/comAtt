@@ -1,12 +1,25 @@
-import React, { useState } from "react";
-import { Button, Container, Form, Spinner } from "react-bootstrap";
-import ReactDatePicker from "react-datepicker";
 import { format } from "date-fns";
+import React from "react";
+import { Container } from "react-bootstrap";
 import useTerms from "../hooks/useTerms";
-import GenericTable from "./CommonJsx/GenericTable";
-import GenericForm from "./CommonJsx/GenericForm";
-import LoadingSpinner from "./CommonJsx/LoadingSpinner";
 import CustomAlert from "./CommonJsx/CustomAlert";
+import GenericForm from "./CommonJsx/GenericForm";
+import GenericTable from "./CommonJsx/GenericTable";
+import LoadingSpinner from "./CommonJsx/LoadingSpinner";
+
+/**
+ * TermManagement Component
+ *
+ * This component provides an interface for managing terms. It allows
+ * the creation and deletion of terms, and displays a list of all terms
+ * in a table format.
+ *
+ * State:
+ * - terms: Reformats the date fields for the terms.
+ * - termFields: Defines the fields used in the GenericForm for term creation.
+ * - termColumns: Defines the columns used in the GenericTable for displaying term data.
+ *
+ */
 
 const TermManagement = () => {
   const {

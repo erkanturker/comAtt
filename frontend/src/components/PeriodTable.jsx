@@ -1,11 +1,24 @@
-// src/components/PeriodTable.jsx
 import React from "react";
 import { Row, Table, Col } from "react-bootstrap";
 import moment from "moment";
 
+/**
+ * PeriodTable Component
+ *
+ * This component renders a table displaying the schedule for different groups on various dates.
+ * It groups periods by date and displays the periods for each group in a table format.
+ *
+ * Props:
+ * - groups: An array of group objects containing group information.
+ * - periods: An array of period objects containing period information.
+ * - subjects: An array of subject objects containing subject information.
+ *
+ * Returns:
+ * - A div containing a table for each date with the group's schedule.
+ */
+
 const PeriodTable = ({ groups, periods, subjects }) => {
-  
-    const getSubjectName = (subjectId) => {
+  const getSubjectName = (subjectId) => {
     const subject = subjects.find((subject) => subject.subjectId === subjectId);
     return subject ? subject.subjectName : "No Class";
   };

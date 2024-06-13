@@ -16,6 +16,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../contexts/AuthContext";
 
+/**
+ * Sidebar component
+ * This component renders a sidebar navigation menu. It displays different links based on the user's role.
+ * Admin users see links for dashboard, users, groups, students, terms, subjects, periods, and reports.
+ * Teacher users see links for the dashboard and attendance.
+ * All users have a logout option.
+ */
+
 function Sidebar({ isOpen }) {
   const { logout, currentUser } = useAuth();
   return (

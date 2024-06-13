@@ -5,6 +5,19 @@ import { Container, Spinner } from "react-bootstrap";
 import GenericForm from "./CommonJsx/GenericForm";
 import CustomAlert from "./CommonJsx/CustomAlert";
 
+/**
+ * UserManagement Component
+ *
+ * This component provides an interface for managing users. It allows
+ * the creation and deletion of users, and displays a list of all users
+ * in a table format.
+ *  State:
+ * - initialData: Initial state for the form data.
+ * - userFields: Defines the fields used in the GenericForm for user creation.
+ * - userColumns: Defines the columns used in the GenericTable for displaying user data.
+ *
+ */
+
 const UserManagment = () => {
   const {
     data: users,

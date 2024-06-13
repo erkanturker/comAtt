@@ -3,6 +3,29 @@ import { Card, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
+/**
+ * DashboardCard Component
+ *
+ * This component renders a card with a title, count, and an icon, which links to a specified path.
+ *
+ * Props:
+ * - title (string): The title of the card.
+ * - count (number | string): The count or value to be displayed on the card.
+ * - icon (object): The FontAwesomeIcon to be displayed.
+ * - color (string): The color class for the icon.
+ * - type (string, optional): The type of value, either "number" or "percent". Defaults to "number".
+ * - link (string, optional): The URL path the card links to. Defaults to "#".
+ *
+ * Usage:
+ * <DashboardCard
+ *   title="Done"
+ *   count={10}
+ *   icon={faCheck}
+ *   color="text-success"
+ *   link="/attendances"
+ * />
+ */
+
 const DashboardCard = ({
   title,
   count,

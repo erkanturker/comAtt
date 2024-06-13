@@ -1,5 +1,8 @@
-import ComAttApi from "../api";
 import useDataManagement from "./useDataManagement";
+
+/*
+*This custom hook simpliefes the Crud opearation of students data
+*/
 
 const useStudents = () => {
   return useDataManagement({

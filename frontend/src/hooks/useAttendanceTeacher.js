@@ -3,6 +3,14 @@ import { useAuth } from "../contexts/AuthContext";
 import ComAttApi from "../api";
 import moment from "moment/moment";
 
+/**
+ * useAttendanceTeacher Hook
+ *
+ * This custom hook manages the attendance for teachers. It fetches the current teacher's schedule,
+ * handles attendance submissions, and manages state for loading, alerts, and attendance data.
+ * It provides helper functions to select periods, change attendance status, and submit attendance.
+ */
+
 const useAttendanceTeacher = () => {
   const { currentUser } = useAuth();
   const [teacherSchedule, setTeacherSchedule] = useState([]);
@@ -52,7 +60,6 @@ const useAttendanceTeacher = () => {
   }, [currentUser]); // Added currentUser to the dependency array
 
   //show students as soon as teacher select the period
-
   const handlePeriodSelect = async (e) => {
     setLoading(true);
     try {

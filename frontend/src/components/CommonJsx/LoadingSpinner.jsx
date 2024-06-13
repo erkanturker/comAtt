@@ -10,8 +10,8 @@ function LoadingSpinner() {
         <div className="mb-1">
           <Spinner
             style={{
-              width: "5rem" /* Adjust the width as needed */,
-              height: "5rem" /* Adjust the height as needed */,
+              width: "5rem",
+              height: "5rem",
             }}
             className="spinner-border-lg"
             animation="border"

@@ -6,6 +6,22 @@ import { Container, Spinner } from "react-bootstrap";
 import CustomAlert from "./CommonJsx/CustomAlert";
 import GenericTable from "./CommonJsx/GenericTable";
 
+/**
+ * StudentManagement Component
+ *
+ * This component provides an interface for managing students. It allows
+ * the creation and deletion of students, and displays a list of all students
+ * in a table format.
+ *
+ * State:
+ * - students: List of students.
+ * - groups: List of groups to populate the group selection dropdown.
+ * - initialData: Initial state for the student form data.
+ * - studentFields: Defines the fields used in the GenericForm for student creation.
+ * - studentColumns: Defines the columns used in the GenericTable for displaying student data.
+ *
+ */
+
 const StudentManagement = () => {
   const {
     data: students,

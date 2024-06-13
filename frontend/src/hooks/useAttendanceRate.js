@@ -2,6 +2,14 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import ComAttApi from "../api";
 
+/**
+ * useAttendanceRate Hook
+ *
+ * This custom hook manages the attendance rates for the current term and current Sunday school periods.
+ * It fetches attendance data for the current term and calculates the overall term attendance rate and 
+ * the attendance rate for the next Sunday.
+ */
+
 const useAttendanceRate = () => {
   const [termAttendances, setTermAttendances] = useState([]);
 

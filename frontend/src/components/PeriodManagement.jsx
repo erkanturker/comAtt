@@ -9,6 +9,19 @@ import PeriodTable from "./PeriodTable";
 import CustomAlert from "./CommonJsx/CustomAlert";
 import LoadingSpinner from "./CommonJsx/LoadingSpinner";
 
+/**
+ * PeriodManagement Component
+ *
+ * This component provides an interface for managing periods.
+ * It allows the creation and copying of period schedules, and
+ * displays a table of scheduled periods filtered by term.
+ * State:
+ * - selectedTerm: Tracks the currently selected term for filtering periods.
+ * Fields:
+ * - periodFields: Defines the fields used in the GenericForm for creating periods.
+ * - copyScheduleField: Defines the fields used in the GenericForm for copying schedules.
+ */
+
 const PeriodManagement = () => {
   const { data: groups } = useGroups();
   const { data: terms } = useTerms();

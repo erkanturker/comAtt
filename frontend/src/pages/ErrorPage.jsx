@@ -1,7 +1,10 @@
-// src/components/ErrorPage.jsx
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import GoBack from "../components/CommonJsx/GoBack";
+
+/**
+ * General error page component to display error messages.
+ */
 
 const ErrorPage = ({
   errorCode = 500,

@@ -1,9 +1,16 @@
-// src/contexts/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import ComAttApi from "../api";
 import { jwtDecode } from "jwt-decode";
 import LoadingSpinner from "../components/CommonJsx/LoadingSpinner";
+
+/**
+ * AuthContext and AuthProvider
+ *
+ * This file sets up the authentication context and provider for the application.
+ * It manages the current user's authentication state, handles login and logout functions,
+ * and stores the authentication token in local storage.
+ */
 
 const AuthContext = createContext();
 

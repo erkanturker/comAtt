@@ -1,6 +1,8 @@
-import React from "react";
 import useDataManagement from "./useDataManagement";
-import ComAttApi from "../api";
+
+/*
+ *This custom hook simpliefes the Crud opearation of term data
+ */
 
 const useSubject = () => {
   return useDataManagement({

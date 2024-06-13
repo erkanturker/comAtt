@@ -1,14 +1,21 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+
+/**
+ * GoBack Component
+ *
+ * This component renders a "Go Back" link that can either navigate to a specified link
+ * or use the browser's history to go back to the previous page.
+ */
 
 const GoBack = ({ link, useNavigateBack }) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
     if (useNavigateBack) {
-      navigate(-1); // Navigate back to the previous page
+      navigate(-1);
     }
   };
 

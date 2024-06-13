@@ -5,6 +5,12 @@ import AttendancePeriodSelection from "./AttendancePeriodSelection";
 import AttendanceTable from "../CommonJsx/AttendanceTable";
 import CustomAlert from "../CommonJsx/CustomAlert";
 import LoadingSpinner from "../CommonJsx/LoadingSpinner";
+/**
+ * AttendanceTeacher Component
+ *
+ * This component allows teachers to manage attendance for their scheduled periods.
+ * It displays a list of periods, each with an indication of whether attendance has been taken.
+ */
 
 const AttendanceTeacher = () => {
   const {

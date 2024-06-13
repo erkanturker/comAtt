@@ -9,6 +9,14 @@ import { Navigate, useNavigate } from "react-router-dom";
 import useFormData from "../hooks/useFormData";
 import CustomAlert from "../components/CommonJsx/CustomAlert";
 
+/**
+ * LoginPage Component
+ *
+ * This component renders the login page for the Student Attendance System.
+ * It allows users to input their username and password to log in.
+ * If the user is already logged in, it redirects them to their respective dashboard based on their role.
+ */
+
 const LoginPage = () => {
   const [formData, setFormData] = useFormData({
     username: "",

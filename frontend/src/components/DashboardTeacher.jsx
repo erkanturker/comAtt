@@ -5,6 +5,12 @@ import { faCheck, faHourglass } from "@fortawesome/free-solid-svg-icons";
 import useAttendanceTeacher from "../hooks/useAttendanceTeacher";
 import LoadingSpinner from "./CommonJsx/LoadingSpinner";
 
+/**
+ * DashboardTeacher Component
+ * This component renders the teacher's dashboard, displaying the count of
+ * remaining and submitted attendance for the current week.
+ */
+
 const DashboardTeacher = () => {
   const {
     remainingAttendance = [],

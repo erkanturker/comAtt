@@ -1,9 +1,15 @@
-// src/components/GenericForm.jsx
 import React from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import useFormData from "../../hooks/useFormData";
 import DatePicker from "react-datepicker";
 import "./GenericForm.css";
+
+/**
+ * GenericForm Component
+ *
+ * This component renders a customizable form based on the provided fields.
+ * It supports various input types including text, select, and date.
+ */
 
 const GenericForm = ({
   initialData,

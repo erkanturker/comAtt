@@ -6,6 +6,14 @@ import CustomAlert from "../CommonJsx/CustomAlert";
 import GoBack from "../CommonJsx/GoBack";
 import LoadingSpinner from "../CommonJsx/LoadingSpinner";
 
+/**
+ * AttendanceAdmin Component
+ *
+ * This component manages and displays attendance information for a selected period.
+ * It uses the useAttendanceAdmin hook to fetch and manage the attendance data.
+ * The user can mark attendance for each student and submit or update the attendance status.
+ */
+
 const AttendanceAdmin = () => {
   const {
     period,
