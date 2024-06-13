@@ -50,6 +50,7 @@ const GenericForm = ({
                   value={formData[field.name]}
                   onChange={handleChange}
                   required={field.required}
+                  data-testid={field.name}
                 >
                   <option value="">{field.placeholder}</option>
                   {field.options.map((option, optionIndex) => (
@@ -65,6 +66,7 @@ const GenericForm = ({
                     selected={formData[field.name]}
                     onChange={(date) => handleDateChange(date, field.name)}
                     className="form-control"
+                    data-testid={field.name}
                   />
                 </div>
               ) : (
@@ -75,6 +77,7 @@ const GenericForm = ({
                   value={formData[field.name]}
                   onChange={handleChange}
                   required={field.required}
+                  data-testid={field.name}
                 />
               )}
             </Form.Group>
@@ -82,7 +85,7 @@ const GenericForm = ({
         ))}
         <Col md={12}>
           <Form.Group controlId="Button" className="mb-3 px-4">
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" data-testid="submit">
               {submitButtonText}
             </Button>
           </Form.Group>

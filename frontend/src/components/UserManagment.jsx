@@ -109,6 +109,7 @@ const UserManagment = () => {
           />
         )}
         <GenericForm
+          title="Create User"
           initialData={initialData}
           onSubmit={addUser}
           fields={userFields}

@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { describe, it, expect, vi } from "vitest";
-import { MockAuthProvider } from "../testUtils";
+import { MockAuthProvider } from "../testUtils/MockAuthProvider";
 import LoginPage from "../pages/LoginPage";
 import DashboardAdmin from "../components/DashboardAdmin";
 import DashboardTeacher from "../components/DashboardTeacher";
