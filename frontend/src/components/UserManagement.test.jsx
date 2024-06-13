@@ -2,7 +2,7 @@ import React from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import useUsers from "../hooks/useUsers";
 import { renderWithProviders } from "../testUtils/RenderWithProvider";
-import UserManagment from "./UserManagment";
+import UserManagment from "./UserManagement";
 import { fireEvent } from "@testing-library/react";
 
 // Mock the useUsers hook
@@ -103,6 +103,5 @@ describe("UserManagement Component", () => {
       email: "email@gmaill.com",
       role: "admin",
     });
-    
   });
 });

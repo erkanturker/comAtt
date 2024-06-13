@@ -12,7 +12,7 @@ import PeriodManagement from "../components/PeriodManagement";
 import StudentManagement from "../components/StudentManagement";
 import SubjectManagement from "../components/SubjectManagement";
 import TermManagement from "../components/TermManagement";
-import UserManagment from "../components/UserManagment";
+import UserManagment from "../components/UserManagement";
 import LoginPage from "../pages/LoginPage";
 import PrivateRoutes from "./PrivateRoutes";
 import DashboardTeacher from "../components/DashboardTeacher";

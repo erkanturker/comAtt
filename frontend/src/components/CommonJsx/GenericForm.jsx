@@ -62,10 +62,12 @@ const GenericForm = ({
               ) : field.type === "date" ? (
                 <div className="date-picker-container">
                   <DatePicker
+                    id={field.name}
                     type="date"
                     selected={formData[field.name]}
                     onChange={(date) => handleDateChange(date, field.name)}
                     className="form-control"
+                    aria-labelledby={`${field.name}-label`}
                     data-testid={field.name}
                   />
                 </div>

@@ -43,7 +43,7 @@ const TermManagement = () => {
       name: "termName",
       label: "Term Name",
       type: "text",
-      placehodler: "Enter term name",
+      placeholder: "Enter term name",
       required: true,
     },
     {
