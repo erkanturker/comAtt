@@ -28,7 +28,7 @@ import DashboardCard from "./DashboardCard";
 
 function DashboardAdmin() {
   const { data: users } = useUsers();
-  const teachers = users.map((user) => user.role === "teacher");
+  const teachers = users.filter((user) => user.role === "teacher");
   const { data: groups } = useGroups();
   const { data: students } = useStudents();
   const { data: subjects } = useSubjects();

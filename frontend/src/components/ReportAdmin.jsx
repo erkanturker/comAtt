@@ -67,6 +67,12 @@ const ReportAdmin = () => {
       .filter((att) => att.studentId === studentId)
       .map((att) => ({ ...att, date: moment(att.date).format("MM-DD-YYYY") }));
 
+    console.log(studentId);
+    console.log(studentFullName);
+
+    console.log(termAttendances);
+    console.log(filteredAttendance);
+
     const termName = filteredAttendance[0].termName;
 
     const tableData = {};
@@ -90,7 +96,7 @@ const ReportAdmin = () => {
             <h6 className="mb-4">Get Student Atttendace Report By Term</h6>
             <Col md={3}>
               <Form.Group controlId="groupSelect" className="mb-3 px-4">
-                <Form.Label htmlFor="groupSelect">Select a Group</Form.Label>
+                <Form.Label>Select a Group</Form.Label>
                 <ReactSelect
                   inputId="groupSelect"
                   options={groupOptions}
@@ -102,9 +108,7 @@ const ReportAdmin = () => {
             </Col>
             <Col md={4}>
               <Form.Group controlId="studentSelect" className="mb-3 px-4">
-                <Form.Label htmlFor="studentSelect">
-                  Select a Student
-                </Form.Label>
+                <Form.Label>Select a Student</Form.Label>
                 <ReactSelect
                   inputId="studentSelect"
                   value={

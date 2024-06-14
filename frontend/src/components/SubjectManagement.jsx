@@ -65,7 +65,7 @@ const SubjectManagement = () => {
 
   return (
     <div>
-      <h1 className="mb-4">Students</h1>
+      <h1 className="mb-4">Subjects</h1>
       <Container fluid>
         {loading && <LoadingSpinner />}
         {alert.visible && (

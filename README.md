@@ -1,19 +1,151 @@
-# Capstone Project Two
+# Community School Attendance App:
 
-We have broken down the Capstone Project into easy-to-follow steps. Each step of the capstone contains a link with instructions for that step. You may notice this secondCapstone follows a similar pattern to your first Capstone, however, there are key differences. 
+The app will assist in managing community school attendance. Admin can create terms (like '2024 Summer'), classes, and schedule classes within each term. The teacher will take the attendance of the class that they are assigned. It will display attendance rates for the term, and weekday for each class or the entire organization. This app is solely focused on taking attendance. The admin will create students, classes, terms, and teachers. However, over time, it will evolve into a student management app for private organizations.
 
-## Overview
-For your second Capstone Project, you’ll build a more complex database-driven website. Most students will choose to develop this app in React and Node, however, Flask/Python is also an option if you tackle a difficult idea. This website will be powered either off of an external API or an API that you build yourself. Your finished capstone will be an integral part of your portfolio; it will demonstrate to potential employers everything you’ve learned from this course.We want you to work on a challenging project that will incorporate all of the full-stack skills you’ve been developing. The goal of this project isn’t to create something that’s never been done before but should be more ambitious than your last capstone. You could potentially create a website similar to one that already exists, but this time, perhaps add a feature that you wish the website had.We do encourage you to be creative when building your site. You’re free to choose any API you’d like to use or build your own. We encourage you to tap into your imagination throughout the project.
+## Installation
 
-## Examples
-You already know about the wealth of APIs available online. Perhaps on this capstone, you can work on one of your ideas that was a bit too complicated for the last project.We also encourage you to create your own API if you cannot find one with the data you are looking for. You can do this through web scraping, importing a CSV, or loading your own data into the API.
+### Backend
 
-Let’s give you an example of what a site could look like. Say you want to make a website or mobile app that was like Facebook for dogs - something that would allow pet owners to connect with other pets in their neighborhood. First, you could load information into the application about various breeds of dogs, which would populate drop down lists and allow users to sort for the kind of dog they would like to sit. This will help users build the profile for their animal. You could add forms with various information about the pets.You could allow them to upload pictures (dog owners love nothing more than to take pictures of their animals). Most importantly, you could allow the pets to connect with other pets through a graph.Now let’s talk about bells and whistles. What if a user of your Dogbook was leaving town and wanted to find users in their neighborhood to watch their dog for the weekend. You could implement a geographical filtering and simple messaging or request system in order to help Spot find the best pet sitter. And since no one wants their dog watched by some kind of monster, you could implement reviews to see if people recommend this sitter. There are a million different features you could add!Verified users, so celebrities could show off their dogs. Hafthor Bjornsson, the actor who plays the Mountain on Game ofThrones, has an adorable pomeranian and people demand picture proof! You could implement an adoption system so people can give shelter pets a good home. Of course, adding in all of these features would be beyond the scope of this project, but you should expect this app to have more functionality than the last Capstone
+1. Clone this repository:
 
-## Guidelines
+```bash
+git clone https://github.com/hatchways-community/capstone-project-two-abc0b72fc1084d49b41bb107ecf040ba.git
+```
 
-1. You can use any technology we’ve taught you in the course, and there’s nothing stopping you from using outside libraries are services.That being said, we recommend you use React, and Node.js for this Capstone.If you completed the optional Redux unit, we recommend you use Redux as well. You can useFlask/Python but will be expected to make a much more fully featured application than last time.
-2. Every step of the project has submissions. This will alert your mentor to evaluate your work. Pay attention to the instructions so you submit the right thing. You will submit the link to your GitHub repo several times, this is for your mentor’s convenience. Your URL on GitHub is static and will not change.
-3. The first two steps require mentor approval to proceed, but after that, you are free to continue working on the project after you submit your work. For instance, you don’t need your mentor to approve your database schema before you start working on your site. Likewise, you don’t need your mentor to approve the first iteration of your site before you start polishing it.
-4. If you get stuck, there is a wealth of resources at your disposal. The course contains all of the material you will need to complete this project, but a well-phrased Google search might yield you an immediate solution to your problem. Don’t forget that your Slack community, TAs, and your mentor there to help you out.
-5.Make sure you use a free API or create your own API and deploy your project on Heroku, so everyone can see your work!
+2.  Change Directory to backend folder
+
+    ```bash
+    cd backend
+    ```
+
+3.  Seed Data
+
+    ```bash
+    psql < comAtt.sql
+    ```
+
+4.  Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+5.  Start the backend server:
+
+    ```bash
+    npm run start
+    ```
+
+### Front End
+
+1. Change Directory from Backend to Frontend folder:
+
+   ```bash
+   cd ..
+   cd frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the front-end react app:
+
+   ```bash
+   npm run dev
+   ```
+
+### Admin Flow
+
+1. The app comes with a default admin user. The username is "admin" and the password is "12345"
+
+    ![alt text](/screenshoots/image.png)
+
+2.Users see the dashboard after login
+
+   ![alt text](/screenshoots/image-1.png)
+
+3. Creating Teacher
+
+    ![alt text](/screenshoots/image-2.png)
+
+Admin is able to created users
+
+   ![alt text](/screenshoots/image-3.png)
+
+3. Creating Groups
+
+    ![alt text](/screenshoots/image-5.png)
+
+4. Create Student
+
+    ![alt text](/screenshoots/image-6.png)
+
+5. Create Terms
+
+    ![alt text](/screenshoots/image-7.png)
+
+6. Create Subjects
+
+    ![alt text](/screenshoots/image-8.png)
+
+6. Periods
+
+This is the critical part of the attendance project. The admin should schedule at least one Sunday school for the entire day within the term. The app currently supports only 4 periods during the day. The admin needs to choose classes for each period that has only one subject, provided there is one teacher assigned to it.
+For example, if there is one reading teacher, they cannot be assigned to teach a reading class to both K-2 and 3-5 grades simultaneously. If there are 4 groups, 4 classes, and 4 periods, the admin needs to repeat this process 16 times. After one day schedule done admin can copy this schedule to anatheer sunday day.nce the schedule for one day is complete, the admin can copy this schedule to another Sunday.
+
+   ![alt text](/screenshoots/image-9.png)
+   ![alt text](/screenshoots/image-10.png)
+
+Final Schedule
+
+   ![alt text](/screenshoots/image-11.png)
+
+Copy this schedule to another Sunday School
+
+   ![alt text](/screenshoots/image-12.png)
+   ![alt text](/screenshoots/image-13.png)
+
+7. Dashboard Missing Submitted and Pending Attendances
+   Admins can see missing submitted attendances and pending attendances on their dashboard. As soon as they click the dashboard card, Admins can see the details of the attendance. Admins can also take attendance or update the attendance.
+
+Dashboard
+    ![alt text](/screenshoots/image-21.png)
+
+Submitted Attendances
+    ![alt text](/screenshoots/image-22.png)
+
+Pending Attendances
+    ![alt text](/screenshoots/image-23.png)
+
+update taken attendances
+    ![alt text](/screenshoots/image-24.png)
+
+submit missing attendances
+    ![alt text](/screenshoots/image-25.png)
+
+8. Report
+
+Admin can get report of sudents attendance for each term
+    ![alt text](/screenshoots/image-26.png)
+
+### Teacher Flow
+
+1. Login, Teacher can login with username and password that created by Admin
+    ![alt text](/screenshoots/image-14.png)
+
+2. Teacher can see their dashboar that shows submitted and pendingn attendance for current sunday school
+    ![alt text](/screenshoots/image-15.png)
+
+3. Teacher able to see schedule for each period
+   ![alt text](/screenshoots/image-16.png)
+
+4. User see the students names and take attendance after selecting the period
+    ![alt text](/screenshoots/image-17.png)
+
+5. After Attendances submited teacher can see whicch attendacen is taken and also can update the attendance after submission and dasboard metric changes accordingly
+    ![alt text](/screenshoots/image-18.png)
+    ![alt text](/screenshoots/image-19.png)
+    ![alt text](/screenshoots/image-20.png)

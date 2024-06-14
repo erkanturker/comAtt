@@ -101,7 +101,7 @@ const StudentManagement = () => {
     },
     {
       name: "parentEmail",
-      label: "Parent Phone",
+      label: "Parent Email",
       type: "email",
       placeholder: "Enter Parent Email",
       required: true,
