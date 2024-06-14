@@ -17,11 +17,9 @@ const useAttendanceRate = () => {
   useEffect(() => {
     const fetchTermAttendances = async () => {
       try {
-        console.log("Fetching term attendances...");
         const respTermAtt = await ComAttApi.getAll(
           "attendances/attendancesByCurrentTerm"
         );
-        console.log("API Response:", respTermAtt);
         setTermAttendances(respTermAtt);
       } catch (error) {
         console.error("Error fetching term attendances:", error);
@@ -32,11 +30,6 @@ const useAttendanceRate = () => {
     fetchTermAttendances();
   }, []);
 
-  useEffect(() => {
-    console.log("Today:", moment().utc().format());
-    console.log("Term Attendances:", termAttendances);
-  }, [termAttendances]);
-
   const presents = termAttendances?.filter((att) => att.status === true).length;
   const termRate = (
     termAttendances?.length > 0 ? (presents / termAttendances.length) * 100 : 0
@@ -44,7 +37,6 @@ const useAttendanceRate = () => {
 
   const getCurrentSundaySchoolAttendances = () => {
     const today = moment().utc();
-    console.log(`Today: ${today.format()}`);
 
     const sortedAttendanceByDate = termAttendances
       .map((att) => ({
@@ -54,13 +46,9 @@ const useAttendanceRate = () => {
       .filter((att) => att.date.isAfter(today, "day"))
       .sort((a, b) => a.date - b.date);
 
-    console.log("Sorted Attendance by Date:", sortedAttendanceByDate);
-
     const currentSundayAttendace = sortedAttendanceByDate.find(
       (att) => att.date.day() === 0
     );
-
-    console.log("Current Sunday Attendance:", currentSundayAttendace);
 
     if (!currentSundayAttendace) {
       return [];
@@ -75,7 +63,6 @@ const useAttendanceRate = () => {
   const currentPresents = currentAttendance.filter(
     (att) => att.status === true
   ).length;
-  console.log(`Current Present: ${currentPresents}`);
 
   const currentRate = (
     currentAttendance?.length > 0
