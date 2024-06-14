@@ -35,15 +35,19 @@ const useAttendanceRate = () => {
 
   const getCurrentSundaySchoolAttendances = () => {
     const today = moment();
-    console.log(`today ${today}`);
+    console.log(`today ${today.format()}`);
+    console.log(`Term Attendances:`, termAttendances);
 
     const sortedAttendanceByDate = termAttendances
-      .map((att) => ({
-        ...att,
-        date: moment(att.date),
-      }))
+      .map((att) => {
+        const parsedDate = moment.utc(att.date);
+        console.log(`Parsed Date: ${parsedDate.format()}`);
+        return { ...att, date: moment(att.date) };
+      })
       .filter((att) => att.date.isAfter(today, "day"))
       .sort((a, b) => a.date - b.date);
+
+    console.log(`Sorted Attendance by Date:`, sortedAttendanceByDate);
 
     const currentSundayAttendace = sortedAttendanceByDate.find(
       (att) => att.date.day() === 0
@@ -52,6 +56,14 @@ const useAttendanceRate = () => {
     if (!currentSundayAttendace) {
       return [];
     }
+
+    console.log(`Current Sunday Attendance:`, currentSundayAttendace);
+
+    const currentAttendance = termAttendances.filter((att) =>
+      moment(att.date).isSame(currentSundayAttendace.date, "day")
+    );
+
+    console.log(`Current Attendance:`, currentAttendance);
 
     return termAttendances.filter((att) =>
       moment(att.date).isSame(currentSundayAttendace.date, "day")
