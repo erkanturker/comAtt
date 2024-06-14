@@ -5,7 +5,7 @@ let db;
 
 if (process.env.NODE_ENV === "production") {
   db = new Client({
-    connnectionString: getDatabaseUri(),
+    connectionString: getDatabaseUri(),
     ssl: {
       rejectUnauthorized: false,
     },
@@ -14,6 +14,8 @@ if (process.env.NODE_ENV === "production") {
   db = new Client({ connectionString: getDatabaseUri() });
 }
 
-db.connect();
+db.connect().catch(err => {
+  console.error('Error connecting to the database:', err.stack);
+});;
 
 module.exports = db;

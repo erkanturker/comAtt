@@ -6,8 +6,8 @@ const SECRET_KEY = process.env.SECRET_KEY || "dev-secret";
 
 function getDatabaseUri() {
   return process.env.NODE_ENV === "test"
-    ? "posgresql:///comatt_test"
-    : process.env.DATABASE_URL || "posgresql:///comatt";
+    ? "postgresql:///comatt_test"
+    : process.env.DATABASE_URL || "postgresql:///comatt";
 }
 
 const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
