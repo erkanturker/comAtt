@@ -12,6 +12,7 @@ import ComAttApi from "../api";
 
 const useAttendanceRate = () => {
   const [termAttendances, setTermAttendances] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTermAttendances = async () => {
@@ -21,11 +22,10 @@ const useAttendanceRate = () => {
           "attendances/attendancesByCurrentTerm"
         );
         console.log("API Response:", respTermAtt);
-
         setTermAttendances(respTermAtt);
       } catch (error) {
         console.error("Error fetching term attendances:", error);
-        console.error(error);
+        setError(error);
       }
     };
 
@@ -43,55 +43,47 @@ const useAttendanceRate = () => {
   ).toFixed(2);
 
   const getCurrentSundaySchoolAttendances = () => {
-    const today = moment();
-    console.log(`today ${today.format()}`);
-    console.log(`Term Attendances:`, termAttendances);
+    const today = moment().utc();
+    console.log(`Today: ${today.format()}`);
 
     const sortedAttendanceByDate = termAttendances
-      .map((att) => {
-        const parsedDate = moment.utc(att.date);
-        console.log(`Parsed Date: ${parsedDate.format()}`);
-        return { ...att, date: moment(att.date) };
-      })
+      .map((att) => ({
+        ...att,
+        date: moment.utc(att.date),
+      }))
       .filter((att) => att.date.isAfter(today, "day"))
       .sort((a, b) => a.date - b.date);
 
-    console.log(`Sorted Attendance by Date:`, sortedAttendanceByDate);
+    console.log("Sorted Attendance by Date:", sortedAttendanceByDate);
 
     const currentSundayAttendace = sortedAttendanceByDate.find(
       (att) => att.date.day() === 0
     );
 
+    console.log("Current Sunday Attendance:", currentSundayAttendace);
+
     if (!currentSundayAttendace) {
       return [];
     }
 
-    console.log(`Current Sunday Attendance:`, currentSundayAttendace);
-
-    const currentAttendance = termAttendances.filter((att) =>
-      moment(att.date).isSame(currentSundayAttendace.date, "day")
-    );
-
-    console.log(`Current Attendance:`, currentAttendance);
-
     return termAttendances.filter((att) =>
-      moment(att.date).isSame(currentSundayAttendace.date, "day")
+      moment.utc(att.date).isSame(currentSundayAttendace.date, "day")
     );
   };
 
   const currentAttendance = getCurrentSundaySchoolAttendances();
   const currentPresents = currentAttendance.filter(
     (att) => att.status === true
-  );
-  console.log(`current Present ${currentPresents.length}`);
+  ).length;
+  console.log(`Current Present: ${currentPresents}`);
 
   const currentRate = (
     currentAttendance?.length > 0
-      ? (currentPresents.length / currentAttendance.length) * 100
+      ? (currentPresents / currentAttendance.length) * 100
       : 0
   ).toFixed(2);
 
-  return { termAttendances, termRate, currentRate };
+  return { termAttendances, termRate, currentRate, error };
 };
 
 export default useAttendanceRate;
