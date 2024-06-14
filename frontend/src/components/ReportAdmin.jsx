@@ -67,12 +67,6 @@ const ReportAdmin = () => {
       .filter((att) => att.studentId === studentId)
       .map((att) => ({ ...att, date: moment(att.date).format("MM-DD-YYYY") }));
 
-    console.log(studentId);
-    console.log(studentFullName);
-
-    console.log(termAttendances);
-    console.log(filteredAttendance);
-
     const termName = filteredAttendance[0].termName;
 
     const tableData = {};
