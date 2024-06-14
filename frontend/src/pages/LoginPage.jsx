@@ -89,6 +89,11 @@ const LoginPage = () => {
             Login
           </Button>
         </Form>
+        <p className="mt-1"> Admin User: Username: admin Password: 12345</p>
+        <p> Teacher User: Username: ejohnson Password: 12345</p>
+        <p> Teacher User: Username: jsmith Password: 12345</p>
+        <p> Teacher User: Username: sbrown Password: 12345</p>
+        <p> Teacher User: Username: dwilliams Password: 12345</p>
       </div>
     </Container>
   );
