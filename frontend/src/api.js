@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Base URL for the API
-const BASEURL = "http://127.0.0.1:3001";
+const BASEURL = import.meta.env.VITE_APP_BASE_URL || "http://127.0.0.1:3001";
 
 /**
  * ComAttApi class to handle API requests.
