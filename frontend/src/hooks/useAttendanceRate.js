@@ -32,6 +32,11 @@ const useAttendanceRate = () => {
     fetchTermAttendances();
   }, []);
 
+  useEffect(() => {
+    console.log("Today:", moment().utc().format());
+    console.log("Term Attendances:", termAttendances);
+  }, [termAttendances]);
+
   const presents = termAttendances?.filter((att) => att.status === true).length;
   const termRate = (
     termAttendances?.length > 0 ? (presents / termAttendances.length) * 100 : 0
