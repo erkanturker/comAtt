@@ -6,7 +6,7 @@ import ComAttApi from "../api";
  * useAttendanceRate Hook
  *
  * This custom hook manages the attendance rates for the current term and current Sunday school periods.
- * It fetches attendance data for the current term and calculates the overall term attendance rate and 
+ * It fetches attendance data for the current term and calculates the overall term attendance rate and
  * the attendance rate for the next Sunday.
  */
 
@@ -35,6 +35,7 @@ const useAttendanceRate = () => {
 
   const getCurrentSundaySchoolAttendances = () => {
     const today = moment();
+    console.log(`today ${today}`);
 
     const sortedAttendanceByDate = termAttendances
       .map((att) => ({
@@ -61,6 +62,7 @@ const useAttendanceRate = () => {
   const currentPresents = currentAttendance.filter(
     (att) => att.status === true
   );
+  console.log(`current Present ${currentPresents.length}`);
 
   const currentRate = (
     currentAttendance?.length > 0
