@@ -68,7 +68,7 @@ const LoginPage = () => {
               className="login-input"
               name="username"
               type="text"
-              placeholder="admin@mail.com"
+              placeholder="Enter username"
               onChange={setFormData}
               value={formData.username}
               required
