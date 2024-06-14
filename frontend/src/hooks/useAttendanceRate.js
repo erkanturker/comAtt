@@ -16,11 +16,15 @@ const useAttendanceRate = () => {
   useEffect(() => {
     const fetchTermAttendances = async () => {
       try {
+        console.log("Fetching term attendances...");
         const respTermAtt = await ComAttApi.getAll(
           "attendances/attendancesByCurrentTerm"
         );
+        console.log("API Response:", respTermAtt);
+
         setTermAttendances(respTermAtt);
       } catch (error) {
+        console.error("Error fetching term attendances:", error);
         console.error(error);
       }
     };
