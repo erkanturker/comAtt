@@ -25,7 +25,7 @@ const PeriodTable = ({ groups, periods, subjects }) => {
 
   const renderTable = () => {
     const groupedPeriods = periods.reduce((acc, period) => {
-      const date = moment(period.date).format("YYYY-MM-DD");
+      const date = moment.utc(period.date).format("YYYY-MM-DD");
       if (!acc[date]) acc[date] = [];
       acc[date].push(period);
       return acc;
@@ -34,7 +34,7 @@ const PeriodTable = ({ groups, periods, subjects }) => {
     return Object.keys(groupedPeriods).map((date) => (
       <Row key={date} style={{ background: "white" }} className="pt-4 m-1 mt-2">
         <Col md={12}>
-          <h6>Schedule for {moment(date).format("MM/DD/YYYY")}</h6>
+          <h6>Schedule for {moment.utc(date).format("MM/DD/YYYY")}</h6>
           <Table striped bordered hover className="mt-4">
             <thead>
               <tr>
